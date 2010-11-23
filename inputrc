@@ -1,0 +1,10 @@
+set input-meta on
+set output-meta on
+set convert-meta off
+set blink-matching-paren on
+
+"\033[1~": beginning-of-line
+"\033[4~": end-of-line
+"\033[5~": beginning-of-history
+"\033[6~": end-of-history
+

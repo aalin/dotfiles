@@ -1,0 +1,44 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	sharedrepository = 1
+
+[receive]
+	denyNonFastforwards = true
+
+[alias]
+	st = status
+	standup = shortlog --since=yesterday
+
+[status]
+	color = auto
+
+[pager]
+	color = true
+
+[diff]
+	color = auto
+
+[user]
+	name = Andreas Alin
+	email = andreas.alin@gmail.com
+
+[merge]
+	tool = mvimdiff
+
+[mergetool "mvimdiff"]
+	cmd = mvimdiff "$LOCAL" "$MERGED" "$REMOTE"
+	trustExitCode = false
+
+[color]
+	grep = auto
+	ui = auto
+
+[push]
+	default = current
+
+[difftool]
+	prompt = false
+
