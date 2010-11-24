@@ -54,9 +54,11 @@ hi Search ctermfg=black ctermbg=yellow
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
-set undodir=~/.vim/undodir
-set undofile
-" Set maximum number of changes that can be undone
-set undolevels=1000
-" Set maximum number lines to save for undo on a buffer reload
-set undoreload=10000
+if has('persistent_undo')
+	set undodir=~/.vim/undodir
+	set undofile
+	" Set maximum number of changes that can be undone
+	set undolevels=1000
+	" Set maximum number lines to save for undo on a buffer reload
+	set undoreload=10000
+end
