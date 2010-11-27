@@ -39,7 +39,10 @@ highlight nbsp ctermbg=Red
 match nbsp "[\xc2\xa0]"
 
 let mapleader = ","
-map <Leader>n :set hls!<return>
+" Toggle search higlighting
+map <Leader>n :set hlsearch!<return>
+" Jump to .hpp-files from .cpp-files and vice versa.
+map <Leader>h :new %:p:s/\.hpp$/\.X123X/:s/\.cpp$/\.hpp/:s/\.X123X$/\.cpp/<CR>
 
 set title
 autocmd BufEnter * let &titlestring=expand("%:t")
