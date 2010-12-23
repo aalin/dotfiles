@@ -65,3 +65,11 @@ if has('persistent_undo')
 	" Set maximum number lines to save for undo on a buffer reload
 	set undoreload=10000
 end
+
+" http://chris-lamb.co.uk/2008/12/30/kicking-vim-cursor-key-habit/
+" Unbind the cursor keys in insert, normal and visual modes.
+for prefix in ['i', 'n', 'v']
+       for key in ['<Up>', '<Down>', '<Left>', '<Right>', '<Delete>', '<PageUp>', '<PageDown>']
+    exe prefix . "noremap " . key . " <Nop>"
+  endfor
+endfor
