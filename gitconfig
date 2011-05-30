@@ -4,6 +4,7 @@
 	bare = false
 	logallrefupdates = true
 	sharedrepository = 1
+	excludesfile = /Users/andreas/.gitignore
 
 [receive]
 	denyNonFastforwards = true
@@ -29,7 +30,7 @@
 	tool = mvimdiff
 
 [mergetool "mvimdiff"]
-	cmd = mvimdiff "$LOCAL" "$MERGED" "$REMOTE"
+	cmd = mvim -d "$LOCAL" "$MERGED" "$REMOTE"
 	trustExitCode = false
 
 [color]
