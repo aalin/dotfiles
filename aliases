@@ -1,0 +1,3 @@
+#!/bin/zsh
+alias savepath="pwd > /tmp/savepath"
+alias loadpath="[ -f /tmp/savepath ] && \`cat /tmp/savepath\` || echo /tmp/savepath does not exist."

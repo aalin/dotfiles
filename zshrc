@@ -8,10 +8,14 @@ source $ZSH/oh-my-zsh.sh
 # For some reason I have to do compinit here, to get completion to work with cp.
 compinit
 
+export LC_ALL=en_US.UTF-8
+
 export HISTSIZE=1000
 export SAVEHIST=1000
 export HISTFILE=~/.zsh_history
-setopt inc_append_history
+
+unsetopt extendedglob # So that I can do "git reset --soft HEAD^" without getting "zsh: no matches found: HEAD^"
+unsetopt share_history
 
 bindkey '^?' backward-delete-char
 bindkey '^[[1~' beginning-of-line
@@ -27,4 +31,7 @@ bindkey '^[[D' backward-char
 source /usr/local/Cellar/coreutils/8.12/aliases
 source ~/.aliases
 
-[[ -s "/Users/andreas/.rvm/scripts/rvm" ]] && source "/Users/andreas/.rvm/scripts/rvm"  # This loads RVM into a shell session.
+export PATH=$HOME/bin:$PATH
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.bdev/profile" ]] && source "$HOME/.bdev/profile"
