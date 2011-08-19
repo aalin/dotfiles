@@ -54,6 +54,8 @@ set incsearch
 " Highlight search matches
 set hlsearch
 hi Search ctermfg=black ctermbg=yellow
+hi StatusLine cterm=NONE ctermbg=yellow ctermfg=black
+hi StatusLineNC cterm=NONE ctermbg=white ctermfg=blac
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
