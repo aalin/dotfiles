@@ -34,4 +34,4 @@ source ~/.aliases
 export PATH=$HOME/bin:$PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$HOME/.bdev/profile" ]] && source "$HOME/.bdev/profile"
+[[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
