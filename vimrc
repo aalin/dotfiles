@@ -18,7 +18,8 @@ syntax on
 filetype on
 filetype plugin indent on
 
-autocmd BufNewFile,BufRead *.rake  setf ruby
+autocmd BufNewFile,BufRead *.rake setf ruby
+autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 
 autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2 expandtab
@@ -33,10 +34,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Non-breaking spaces to space
 inoremap   <Space>
-
-" Make non-breaking spaces red
-highlight nbsp ctermbg=Red
-match nbsp "[\xc2\xa0]"
 
 let mapleader = ","
 " Toggle search higlighting
@@ -75,3 +72,13 @@ for prefix in ['i', 'n', 'v']
     exe prefix . "noremap " . key . " <Nop>"
   endfor
 endfor
+
+set t_Co=256
+colorscheme peachpuff
+
+" Make non-breaking spaces red
+highlight nbsp ctermbg=Red
+match nbsp "[\xc2\xa0]"
+
+highlight trailing_spaces ctermbg=Red
+match trailing_spaces /\s\+$/
