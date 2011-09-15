@@ -43,6 +43,9 @@ task :install do
     source_path = File.join(File.dirname(__FILE__), source)
     destination_path = File.expand_path(destination)
 
-    FileUtils.copy(source_path, destination_path) if write?(source_path, destination_path)
+    if write?(source_path, destination_path)
+      puts "Copying #{ source_path } to #{ destination_path }"
+      FileUtils.copy(source_path, destination_path)
+    end
   end
 end

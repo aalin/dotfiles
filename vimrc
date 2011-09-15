@@ -18,7 +18,7 @@ syntax on
 filetype on
 filetype plugin indent on
 
-autocmd BufNewFile,BufRead *.rake setf ruby
+autocmd BufNewFile,BufRead *.rake,Gemfile,Guardfile setf ruby
 autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 
 autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
@@ -73,8 +73,15 @@ for prefix in ['i', 'n', 'v']
   endfor
 endfor
 
+call pathogen#infect()
+
 set t_Co=256
 colorscheme peachpuff
+
+hi DiffText term=reverse cterm=bold ctermbg=88
+hi DiffChange term=bold ctermbg=56
+hi DiffDelete term=bold ctermfg=69 ctermbg=17 gui=bold
+hi DiffAdd term=bold ctermbg=69
 
 " Make non-breaking spaces red
 highlight nbsp ctermbg=Red
