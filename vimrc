@@ -89,3 +89,6 @@ match nbsp "[\xc2\xa0]"
 
 highlight trailing_spaces ctermbg=Red
 match trailing_spaces /\s\+$/
+
+highlight StatusLine ctermfg=250 ctermbg=black
+highlight StatusLineNC ctermfg=241 ctermbg=black
