@@ -78,10 +78,14 @@ call pathogen#infect()
 set t_Co=256
 colorscheme peachpuff
 
+" Dark red
 hi DiffText term=reverse cterm=bold ctermbg=88
-hi DiffChange term=bold ctermbg=56
-hi DiffDelete term=bold ctermfg=69 ctermbg=17 gui=bold
-hi DiffAdd term=bold ctermbg=69
+" Dark blue
+hi DiffChange term=bold ctermbg=17
+" Dark gray, lighter gray
+hi DiffDelete term=bold ctermbg=234 ctermfg=235
+" Dark green
+hi DiffAdd term=bold ctermbg=22
 
 " Make non-breaking spaces red
 highlight nbsp ctermbg=Red
