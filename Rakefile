@@ -36,6 +36,7 @@ task :install do
     "gvimrc"    => "~/.gvimrc",
     "inputrc"   => "~/.inputrc",
     "irbrc"     => "~/.irbrc",
+    "pryrc"     => "~/.pryrc",
     "vimrc"     => "~/.vimrc",
     "zshrc"     => "~/.zshrc",
     "aliases"   => "~/.aliases"
