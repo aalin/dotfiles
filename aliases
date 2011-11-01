@@ -1,8 +1,7 @@
 #!/bin/zsh
 alias savepath="pwd > /tmp/savepath"
 alias loadpath="[ -f /tmp/savepath ] && \`cat /tmp/savepath\` || echo /tmp/savepath does not exist."
-alias r='rails'
-alias go='git checkout'
 alias photoshop="open -a Adobe\ Photoshop\ CS5"
 alias pryconsole="pry -r./config/environment"
 alias ls='gls --color'
+alias gupp="git fetch && git rebase && git push"

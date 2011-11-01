@@ -27,11 +27,11 @@
 	email = andreas.alin@gmail.com
 
 [merge]
-	tool = mvimdiff
+	tool = vimdiff
 
-[mergetool "mvimdiff"]
-	cmd = mvim -d "$LOCAL" "$MERGED" "$REMOTE"
-	trustExitCode = false
+[mergetool "vimdiff"]
+	cmd = vim -d "$LOCAL" "$MERGED" "$REMOTE"
+	trustExitCode = true
 
 [color]
 	grep = auto

@@ -31,15 +31,16 @@ end
 desc "Install the FILES!"
 task :install do
   {
-    "gitconfig" => "~/.gitconfig",
-    "gitignore" => "~/.gitignore",
-    "gvimrc"    => "~/.gvimrc",
-    "inputrc"   => "~/.inputrc",
-    "irbrc"     => "~/.irbrc",
-    "pryrc"     => "~/.pryrc",
-    "vimrc"     => "~/.vimrc",
-    "zshrc"     => "~/.zshrc",
-    "aliases"   => "~/.aliases"
+    "gitconfig"       => "~/.gitconfig",
+    "gitignore"       => "~/.gitignore",
+    "gvimrc"          => "~/.gvimrc",
+    "inputrc"         => "~/.inputrc",
+    "irbrc"           => "~/.irbrc",
+    "pryrc"           => "~/.pryrc",
+    "vimrc"           => "~/.vimrc",
+    "zshrc"           => "~/.zshrc",
+    "aliases"         => "~/.aliases",
+    "aalin.zsh-theme" => "~/.oh-my-zsh/themes/aalin.zsh-theme"
   }.each do |source, destination|
     source_path = File.join(File.dirname(__FILE__), source)
     destination_path = File.expand_path(destination)
