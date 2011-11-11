@@ -5,3 +5,6 @@ alias photoshop="open -a Adobe\ Photoshop\ CS5"
 alias pryconsole="pry -r./config/environment"
 alias ls='gls --color'
 alias gupp="git fetch && git rebase && git push"
+alias be="bundle exec"
+alias mkae="make"
+alias maek="make"
