@@ -45,6 +45,7 @@ set title
 autocmd BufEnter * let &titlestring=expand("%:t")
 
 map <Space> i_<Esc>r
+map <C-w>o <Nop>
 
 " Incremental searching
 set incsearch
@@ -80,11 +81,11 @@ hi DiffDelete term=bold ctermbg=234 ctermfg=235
 hi DiffAdd term=bold ctermbg=22
 
 " Make non-breaking spaces red
-highlight nbsp ctermbg=Red
-match nbsp "[\xc2\xa0]"
+autocmd BufNewFile,BufRead * highlight nbsp ctermbg=Red
+autocmd BufNewFile,BufRead * match nbsp "[\xc2\xa0]"
 
-highlight trailing_spaces ctermbg=Red
-match trailing_spaces /\s\+$/
+autocmd BufNewFile,BufRead * highlight trailing_spaces ctermbg=Red
+autocmd BufNewFile,BufRead * match trailing_spaces /\s\+$/
 
 highlight StatusLine ctermfg=250 ctermbg=black
 highlight StatusLineNC ctermfg=241 ctermbg=black
