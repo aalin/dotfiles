@@ -1,7 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="aalin"
 
-plugins=(git rails3 brew git-escape-magic)
+plugins=(git rails3 brew git-escape-magic bundler pow)
 
 source $ZSH/oh-my-zsh.sh
 

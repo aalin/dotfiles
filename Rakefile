@@ -40,6 +40,7 @@ task :install do
     "vimrc"           => "~/.vimrc",
     "zshrc"           => "~/.zshrc",
     "aliases"         => "~/.aliases",
+    "tmux.conf"       => "~/.tmux.conf",
     "aalin.zsh-theme" => "~/.oh-my-zsh/themes/aalin.zsh-theme"
   }.each do |source, destination|
     source_path = File.join(File.dirname(__FILE__), source)
