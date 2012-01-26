@@ -15,7 +15,6 @@ set tabstop=2
 set shiftwidth=2
 
 syntax on
-filetype on
 filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.rake,Gemfile,Guardfile setf ruby
@@ -41,6 +40,13 @@ map <Leader>n :set hlsearch!<return>
 " Jump to .hpp-files from .cpp-files and vice versa.
 map <Leader>h :new %:p:s/\.hpp$/\.X123X/:s/\.cpp$/\.hpp/:s/\.X123X$/\.cpp/<CR>
 
+" Yank to OS X pasteboard.
+noremap <Leader>y "*y
+
+" Paste from OS X pasteboard without messing up indent.
+noremap <Leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+noremap <Leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+
 set title
 autocmd BufEnter * let &titlestring=expand("%:t")
 
@@ -57,18 +63,8 @@ hi StatusLineNC cterm=NONE ctermbg=white ctermfg=black
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
-if has('persistent_undo')
-  set undodir=~/.vim/undodir
-  set undofile
-  " Set maximum number of changes that can be undone
-  set undolevels=1000
-  " Set maximum number lines to save for undo on a buffer reload
-  set undoreload=10000
-end
-
 call pathogen#infect()
 
-set t_Co=256
 colorscheme peachpuff
 
 " Dark red
