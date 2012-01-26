@@ -51,4 +51,9 @@ task :install do
       FileUtils.copy(source_path, destination_path)
     end
   end
+
+  unless File.exists?(File.expand_path("~/.vim/autoload/pathogen.vim"))
+    system("mkdir -p ~/.vim/autoload ~/.vim/bundle")
+    system("curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim")
+  end
 end
