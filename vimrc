@@ -65,7 +65,7 @@ let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 call pathogen#infect()
 
-colorscheme peachpuff
+colorscheme blackboard
 
 " Dark red
 hi DiffText term=reverse cterm=bold ctermbg=88

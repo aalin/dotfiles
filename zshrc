@@ -44,3 +44,5 @@ export PATH=/usr/local/bin:$PATH
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
+
+export EDITOR=/usr/local/bin/vim
