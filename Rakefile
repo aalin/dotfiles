@@ -1,14 +1,25 @@
 require 'shellwords'
 
+def colorize_diff(diff)
+  {
+    /^<.*/ => "\e[32m\\0\e[0m",
+    /^>.*/ => "\e[31m\\0\e[0m",
+    /^Only\sin\s.*/ => "\e[31m\\0\e[0m",
+    /^Common\ssubdirectories\s.*/ => "\e[34m\\0\e[0m"
+  }.inject(diff) do |str, (pattern, replacement)|
+    str.gsub(pattern, replacement)
+  end
+end
+
 def diff?(source_path, destination_path)
-  cmd = ['diff', source_path, destination_path].shelljoin
+  cmd = ['diff', '-r', source_path, destination_path].shelljoin
   output = `#{ cmd }`.strip
 
   if output.strip.empty?
     false
   else
     print "\e[2J" # clear screen
-    puts output.gsub(/^<.*/, "\e[32m\\0\e[0m").gsub(/^>.*/, "\e[31m\\0\e[0m")
+    puts colorize_diff(output)
     true
   end
 end
