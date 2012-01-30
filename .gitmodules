@@ -13,3 +13,6 @@
 [submodule "vim/bundle/tabular"]
 	path = vim/bundle/tabular
 	url = https://github.com/godlygeek/tabular.git
+[submodule "vim/bundle/file-line"]
+	path = vim/bundle/file-line
+	url = https://github.com/vim-scripts/file-line.git
