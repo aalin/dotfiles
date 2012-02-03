@@ -2,10 +2,10 @@
 alias savepath="pwd > /tmp/savepath"
 alias loadpath="[ -f /tmp/savepath ] && \`cat /tmp/savepath\` || echo /tmp/savepath does not exist."
 alias photoshop="open -a Adobe\ Photoshop\ CS5"
-alias pryconsole="pry -r./config/environment"
 alias ls='gls --color'
 alias gupp="git fetch && git rebase && git push"
-alias be="bundle exec"
 alias mkae="make"
 alias maek="make"
+alias rkae="rake"
+alias raek="rake"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us 2>/dev/null|pbcopy"
