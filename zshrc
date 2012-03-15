@@ -46,3 +46,6 @@ export PATH=/usr/local/bin:$PATH
 [[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
 
 export EDITOR=/usr/local/bin/vim
+
+bindkey "[D" backward-word
+bindkey "[C" forward-word
