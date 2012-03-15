@@ -65,7 +65,9 @@ let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
 call pathogen#infect()
 
-colorscheme blackboard
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
 
 " Dark red
 hi DiffText term=reverse cterm=bold ctermbg=88
@@ -91,3 +93,9 @@ highlight StatusLineNC ctermfg=241 ctermbg=black
 map <leader>S :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
+" iTerm2.
+" Change cursor shape in insert mode.
+" http://www.iterm2.com/#/section/documentation/escape_codes
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
