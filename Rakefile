@@ -41,6 +41,9 @@ end
 
 desc "Install the FILES!"
 task :install do
+  system("git submodule init > /dev/null")
+  system("git submodule update > /dev/null")
+
   {
     "gitconfig"       => "~/.gitconfig",
     "gitignore"       => "~/.gitignore",
@@ -62,7 +65,6 @@ task :install do
       FileUtils.copy(source_path, destination_path)
     end
   end
-
 
   vim_source = File.join(File.dirname(__FILE__), "vim")
   vim_target = File.expand_path("~/.vim")
