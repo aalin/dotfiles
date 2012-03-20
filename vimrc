@@ -23,6 +23,7 @@ autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype scss       setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype coffee     setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype cucumber   setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
 autocmd Filetype cpp,c      setlocal ts=4 sts=4 sw=4
@@ -36,7 +37,7 @@ inoremap   <Space>
 
 let mapleader = ","
 " Toggle search higlighting
-map <Leader>n :set hlsearch!<return>
+map <Leader><Leader> :set hlsearch!<CR>
 " Jump to .hpp-files from .cpp-files and vice versa.
 map <Leader>h :new %:p:s/\.hpp$/\.X123X/:s/\.cpp$/\.hpp/:s/\.X123X$/\.cpp/<CR>
 
