@@ -66,25 +66,32 @@ task :install do
     end
   end
 
+  has_rvm = system "which rvm 1> /dev/null"
+  command_t_path = File.join(File.dirname(__FILE__), "vim/bundle/Command-T/ruby/command-t/")
+  Dir.chdir(command_t_path) do
+    build_commands = []
+
+    if has_rvm
+      build_commands << "source ~/.rvm/scripts/rvm > /dev/null"
+      build_commands << "rvm use system > /dev/null"
+    end
+
+    build_commands << "make clean"
+    build_commands << "rake make 2>&1>/dev/null"
+    build_commands << "mv ext.bundle /tmp"
+    build_commands << "make clean"
+    build_commands << "mv /tmp/ext.bundle ."
+
+    unless system(build_commands.join(" && "))
+      puts "\e[31mCould not build Command-T. Do it yourself!\e[0m"
+      puts "  \e[33mcd #{ command_t_path }; rake make\e[0m"
+    end
+  end
+
   vim_source = File.join(File.dirname(__FILE__), "vim")
   vim_target = File.expand_path("~/.vim")
   if write?(vim_source, vim_target)
     FileUtils.rm_rf(vim_target)
     FileUtils.cp_r(vim_source, vim_target)
-  end
-
-  has_rvm = system "which rvm 1> /dev/null"
-  command_t_path = File.expand_path("~/.vim/bundle/Command-T/ruby/command-t/")
-  unless File.exists?(File.join(command_t_path, "ext.bundle"))
-    Dir.chdir(command_t_path) do
-      build_commands = []
-      build_commands << "rvm use system >> /dev/null" if has_rvm
-      build_commands << "rake make > /dev/null"
-
-      unless system(build_commands.join(" && "))
-        puts "\e[31mCould not build Command-T. Do it yourself!\e[0m"
-        puts "  \e[33mcd #{ command_t_path }; rake make\e[0m"
-      end
-    end
   end
 end
