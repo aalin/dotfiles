@@ -97,3 +97,32 @@ task :install do
     FileUtils.cp_r(vim_source, vim_target)
   end
 end
+
+desc "Add a vim plugin"
+task :add_vim_plugin do
+  # https://github.com/tpope/vim-rails.git
+  if git_url = ENV['GIT']
+    plugin_name = File.basename(File.split(git_url).last, ".git")
+    target_path = File.join("vim/bundle", plugin_name)
+    system("git", "submodule", "add", git_url, target_path)
+  else
+    puts "Please provide a url, like this: GIT=https://github.com/tpope/vim-rails.git rake ..."
+  end
+end
+
+desc "Remove a vim plugin"
+task :remove_vim_plugin do
+  if plugin_name = ENV['PLUGIN']
+    `git config -f .gitmodules -l`.lines.each do |line|
+      p line
+      if match = line.match(%r{^submodule\.vim\/bundle\/#{ plugin_name }\.path=(?<path>.*)$})
+        puts "\t" + match.inspect
+        system("git", "config", "-f", ".git/config", "--remove-section", "submodule.#{ match[:path] }")
+        system("git", "config", "-f", ".gitmodules", "--remove-section", "submodule.#{ match[:path] }")
+        system("git", "rm", "--cached")
+      end
+    end
+  else
+    puts "Please provide a plugin name, like this: GIT=vim-rails rake ..."
+  end
+end
