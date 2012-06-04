@@ -48,6 +48,12 @@ noremap <Leader>y "*y
 noremap <Leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
 noremap <Leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 
+" Preserve selection when indenting stuff
+vmap > >gv
+vmap < <gv
+vmap <Tab> >
+vmap <S-Tab> <
+
 set title
 autocmd BufEnter * let &titlestring=expand("%:t")
 
@@ -70,14 +76,11 @@ set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
-" Dark red
-hi DiffText term=reverse cterm=bold ctermbg=88
-" Dark blue
-hi DiffChange term=bold ctermbg=17
-" Dark gray, lighter gray
-hi DiffDelete term=bold ctermbg=234 ctermfg=235
-" Dark green
-hi DiffAdd term=bold ctermbg=22
+let g:syntastic_quiet_warnings=1
+let g:syntastic_auto_loc_list=1
+
+" Fix arrow keys in Command-T
+map <Esc>[B <Down>
 
 " Make non-breaking spaces red
 autocmd BufNewFile,BufRead * highlight nbsp ctermbg=Red
