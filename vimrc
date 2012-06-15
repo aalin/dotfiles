@@ -40,6 +40,7 @@ let mapleader = ","
 map <Leader><Leader> :set hlsearch!<CR>
 " Jump to .hpp-files from .cpp-files and vice versa.
 map <Leader>h :new %:p:s/\.hpp$/\.X123X/:s/\.cpp$/\.hpp/:s/\.X123X$/\.cpp/<CR>
+map S :w<CR>
 
 " Yank to OS X pasteboard.
 noremap <Leader>y "*y
@@ -51,8 +52,11 @@ noremap <Leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
 " Preserve selection when indenting stuff
 vmap > >gv
 vmap < <gv
+" Indent using tab
 vmap <Tab> >
 vmap <S-Tab> <
+
+vmap <Leader>t :s/\s\+$//<CR>
 
 set title
 autocmd BufEnter * let &titlestring=expand("%:t")
@@ -65,8 +69,8 @@ set incsearch
 " Highlight search matches
 set hlsearch
 hi Search ctermfg=black ctermbg=yellow
-hi StatusLine cterm=NONE ctermbg=yellow ctermfg=black
-hi StatusLineNC cterm=NONE ctermbg=white ctermfg=black
+hi StatusLine cterm=none ctermbg=yellow ctermfg=black
+hi StatusLineNC cterm=none ctermbg=white ctermfg=black
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
@@ -76,8 +80,12 @@ set background=dark
 let g:solarized_termcolors=256
 colorscheme solarized
 
+set cursorline
+hi CursorLine cterm=none ctermbg=235
+
 let g:syntastic_quiet_warnings=1
 let g:syntastic_auto_loc_list=1
+highlight SyntasticError ctermbg=darkblue ctermfg=white
 
 " Fix arrow keys in Command-T
 map <Esc>[B <Down>
