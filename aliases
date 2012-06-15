@@ -13,6 +13,6 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us 2>/dev/null|pbcopy"
 alias grbc="git add -A && git rebase --continue"
 alias grba="git rebase --abort"
 
-alias guard="be guard -i"
+alias guard="be guard -i -c"
 
 alias gl='echo git pull --rebase'
