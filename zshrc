@@ -35,7 +35,8 @@ bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char
 bindkey '^[[D' backward-char
 
-source /usr/local/Cellar/coreutils/8.12/aliases
+[[ -s "/usr/local/Cellar/coreutils/8.12/aliases" ]] && source /usr/local/Cellar/coreutils/8.12/aliases
+PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 [[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
 [[ -s "$HOME/.pr0n" ]] && source "$HOME/.pr0n" # secret aliases :D
 
