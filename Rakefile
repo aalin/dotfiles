@@ -126,3 +126,8 @@ task :remove_vim_plugin do
     puts "Please provide a plugin name, like this: GIT=vim-rails rake ..."
   end
 end
+
+desc "Update all submodules"
+task :update_submodules do
+  system("git submodule foreach git pull origin master")
+end
