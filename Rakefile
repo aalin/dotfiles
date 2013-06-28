@@ -101,20 +101,18 @@ end
 desc "Add a vim plugin"
 task :add_vim_plugin do
   # https://github.com/tpope/vim-rails.git
-  if git_url = ENV['GIT']
-    plugin_name = File.basename(File.split(git_url).last, ".git")
-    target_path = File.join("vim/bundle", plugin_name)
-    system("git", "submodule", "add", git_url, target_path)
-  else
-    puts "Please provide a url, like this: GIT=https://github.com/tpope/vim-rails.git rake ..."
-  end
+  print "Enter a url: "
+  git_url = $stdin.gets.strip
+
+  plugin_name = File.basename(File.split(git_url).last, ".git")
+  target_path = File.join("vim/bundle", plugin_name)
+  system("git", "submodule", "add", git_url, target_path)
 end
 
 desc "Remove a vim plugin"
 task :remove_vim_plugin do
   if plugin_name = ENV['PLUGIN']
     `git config -f .gitmodules -l`.lines.each do |line|
-      p line
       if match = line.match(%r{^submodule\.vim\/bundle\/#{ plugin_name }\.path=(?<path>.*)$})
         puts "\t" + match.inspect
         system("git", "config", "-f", ".git/config", "--remove-section", "submodule.#{ match[:path] }")
