@@ -35,18 +35,17 @@ bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char
 bindkey '^[[D' backward-char
 
-[[ -s "/usr/local/Cellar/coreutils/8.12/aliases" ]] && source /usr/local/Cellar/coreutils/8.12/aliases
-PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-[[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
-[[ -s "$HOME/.pr0n" ]] && source "$HOME/.pr0n" # secret aliases :D
-
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
 
 export EDITOR=/usr/local/bin/vim
 
 bindkey "[D" backward-word
 bindkey "[C" forward-word
+
+which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+[[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
+[[ -s "$HOME/.pr0n" ]] && source "$HOME/.pr0n" # secret aliases :D
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
+[[ -s "$HOME/.profile" ]] && source "$HOME/.profile"

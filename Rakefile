@@ -39,10 +39,16 @@ def write?(source_path, destination_path)
   end
 end
 
+task :default => :install
+
 desc "Install the FILES!"
 task :install do
   system("git submodule init > /dev/null")
   system("git submodule update > /dev/null")
+
+  unless File.exists?("~/.oh-my-zsh")
+    system("git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh")
+  end
 
   {
     "gitconfig"       => "~/.gitconfig",

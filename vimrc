@@ -18,10 +18,13 @@ syntax on
 filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.rake,Gemfile,Guardfile setf ruby
+autocmd BufNewFile,BufRead *.slim setf slim
 autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
+autocmd BufNewFile,BufRead *.jbuilder,*.jpbuilder setf ruby
 
 autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype slim       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype scss       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype coffee     setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype cucumber   setlocal ts=2 sts=2 sw=2 expandtab
@@ -115,8 +118,10 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 let g:VimuxUseNearestPane = 1
 let g:no_turbux_mappings = 1
 let g:turbux_command_rspec = 'rspec --drb'
-map <leader>m <Plug>SendTestToTmux
-map <leader>M <Plug>SendFocusedTestToTmux
+map M <Plug>SendTestToTmux
+map m <Plug>SendFocusedTestToTmux
+map <c-p> :CommandT<CR>
+map <leader>t :CommandT<CR>
 map <leader>§ call VimuxRunCommand("ruby ".expand("%"))
 
 set exrc " enable per-directory .vimrc files

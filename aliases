@@ -2,7 +2,9 @@
 alias savepath="pwd > /tmp/savepath"
 alias loadpath="[ -f /tmp/savepath ] && \`cat /tmp/savepath\` || echo /tmp/savepath does not exist."
 alias photoshop="open -a Adobe\ Photoshop\ CS5"
-alias ls='gls --color'
+
+alias ls='ls --color'
+
 alias gupp="git fetch && git rebase && git push"
 alias mkae="make"
 alias maek="make"
