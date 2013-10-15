@@ -127,7 +127,7 @@ task :remove_vim_plugin do
       end
     end
   else
-    puts "Please provide a plugin name, like this: GIT=vim-rails rake ..."
+    puts "Please provide a plugin name, like this: PLUGIN=vim-rails rake ..."
   end
 end
 
