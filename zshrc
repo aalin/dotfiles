@@ -49,3 +49,9 @@ which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+
+hitch() {
+  command hitch "$@"
+  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
+}
+alias unhitch='hitch -u'

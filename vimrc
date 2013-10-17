@@ -120,9 +120,8 @@ let g:no_turbux_mappings = 1
 let g:turbux_command_rspec = 'rspec --drb'
 map M <Plug>SendTestToTmux
 map m <Plug>SendFocusedTestToTmux
-map <c-p> :CommandT<CR>
-map <leader>t :CommandT<CR>
 map <leader>§ call VimuxRunCommand("ruby ".expand("%"))
+map <leader>a :GitGrep
 
 set exrc " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
