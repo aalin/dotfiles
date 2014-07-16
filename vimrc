@@ -21,6 +21,7 @@ autocmd BufNewFile,BufRead *.rake,Gemfile,Guardfile setf ruby
 autocmd BufNewFile,BufRead *.slim setf slim
 autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 autocmd BufNewFile,BufRead *.jbuilder,*.jpbuilder setf ruby
+autocmd BufNewFile,BufRead *_spec.rb setf rspec
 
 autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2 expandtab
@@ -31,6 +32,16 @@ autocmd Filetype cucumber   setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
 autocmd Filetype cpp,c      setlocal ts=4 sts=4 sw=4
 autocmd Filetype xml        setlocal ts=4 sts=4 sw=4
+
+" Insert header guards, http://vim.wikia.com/wiki/Automatic_insertion_of_C/C%2B%2B_header_gates
+function! s:insert_gates()
+  let gatename = substitute(toupper(expand("%:t")), "\\.", "_", "g")
+  execute "normal! i#ifndef " . gatename
+  execute "normal! o#define " . gatename
+  execute "normal! Go#endif"
+  normal! ko
+endfunction
+autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
 " Jump back to the last known position in the file.
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -86,7 +97,7 @@ colorscheme solarized
 set cursorline
 hi CursorLine cterm=none ctermbg=235
 
-let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_auto_loc_list=1
 highlight SyntasticError ctermbg=darkblue ctermfg=white
 
