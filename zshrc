@@ -1,7 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="aalin"
 
-plugins=(git rails3 brew git-escape-magic bundler pow)
+plugins=(git rails brew git-escape-magic bundler pow zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -49,8 +49,10 @@ which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 [[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
 [[ -s "$HOME/.pr0n" ]] && source "$HOME/.pr0n" # secret aliases :D
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$HOME/.bs/profile" ]] && source "$HOME/.bs/profile"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+
+export OCD_PATH=~/Projects/ocd
+source "$OCD_PATH/bin/ocd.zsh"
 
 hitch() {
   command hitch "$@"
