@@ -126,6 +126,8 @@ map <leader>S :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 let g:VimuxUseNearestPane = 1
 let g:no_turbux_mappings = 1
 let g:turbux_command_rspec = 'rspec --drb'
