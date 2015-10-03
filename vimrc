@@ -29,7 +29,9 @@ autocmd Filetype slim       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype scss       setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype coffee     setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype cucumber   setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=4 sts=4 sw=4 expandtab
+autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype json       setlocal ts=2 sts=2 sw=2 expandtab
+autocmd Filetype markdown   setlocal ts=2 sts=2 sw=2 expandtab
 autocmd Filetype cpp,c      setlocal ts=4 sts=4 sw=4
 autocmd Filetype xml        setlocal ts=4 sts=4 sw=4
 
@@ -88,7 +90,25 @@ hi StatusLineNC cterm=none ctermbg=white ctermfg=black
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
-call pathogen#infect()
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-rails'
+Plugin 'godlygeek/tabular'
+Plugin 'vim-scripts/file-line'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'scrooloose/syntastic'
+Plugin 'kien/ctrlp.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'elixir-lang/vim-elixir'
+call vundle#end()
+filetype plugin indent on
 
 set background=dark
 let g:solarized_termcolors=256
@@ -99,6 +119,7 @@ hi CursorLine cterm=none ctermbg=235
 
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_auto_loc_list=1
+let g:syntastic_javascript_checkers = ['eslint']
 highlight SyntasticError ctermbg=darkblue ctermfg=white
 
 " Fix arrow keys in Command-T
@@ -127,14 +148,6 @@ let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
-let g:VimuxUseNearestPane = 1
-let g:no_turbux_mappings = 1
-let g:turbux_command_rspec = 'rspec --drb'
-map M <Plug>SendTestToTmux
-map m <Plug>SendFocusedTestToTmux
-map <leader>§ call VimuxRunCommand("ruby ".expand("%"))
-map <leader>a :GitGrep
 
 set exrc " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files

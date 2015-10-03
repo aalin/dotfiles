@@ -39,15 +39,16 @@ def write?(source_path, destination_path)
   end
 end
 
+def git_clone(repository, path)
+  system('git', 'clone', repository, path)
+end
+
 task :default => :install
 
-desc "Install the FILES!"
+desc "Install dotfiles"
 task :install do
-  system("git submodule init > /dev/null")
-  system("git submodule update > /dev/null")
-
   unless File.exists?("~/.oh-my-zsh")
-    system("git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh")
+    git_clone('git://github.com/robbyrussell/oh-my-zsh.git', '~/.oh-my-zsh')
   end
 
   {
@@ -73,42 +74,13 @@ task :install do
     end
   end
 
-  vim_source = File.join(File.dirname(__FILE__), "vim")
-  vim_target = File.expand_path("~/.vim")
-  if write?(vim_source, vim_target)
-    FileUtils.rm_rf(vim_target)
-    FileUtils.cp_r(vim_source, vim_target)
+  vim_dir = File.expand_path('~/.vim')
+  vim_bundle_dir = File.join(vim_dir, 'bundle')
+  FileUtils.mkdir_p(vim_bundle_dir)
+  vundle_dir = File.join(vim_bundle_dir, 'Vundle.vim')
+
+  unless File.directory?(File.join(vim_bundle_dir, 'Vundle.vim'))
+    git_clone('git://github.com/robbyrussell/oh-my-zsh.git', '~/.oh-my-zsh')
+    system('vim', '+PluginInstall', '+qall')
   end
-end
-
-desc "Add a vim plugin"
-task :add_vim_plugin do
-  # https://github.com/tpope/vim-rails.git
-  print "Enter a url: "
-  git_url = $stdin.gets.strip
-
-  plugin_name = File.basename(File.split(git_url).last, ".git")
-  target_path = File.join("vim/bundle", plugin_name)
-  system("git", "submodule", "add", git_url, target_path)
-end
-
-desc "Remove a vim plugin"
-task :remove_vim_plugin do
-  if plugin_name = ENV['PLUGIN']
-    `git config -f .gitmodules -l`.lines.each do |line|
-      if match = line.match(%r{^submodule\.vim\/bundle\/#{ plugin_name }\.path=(?<path>.*)$})
-        puts "\t" + match.inspect
-        system("git", "config", "-f", ".git/config", "--remove-section", "submodule.#{ match[:path] }")
-        system("git", "config", "-f", ".gitmodules", "--remove-section", "submodule.#{ match[:path] }")
-        system("git", "rm", "--cached")
-      end
-    end
-  else
-    puts "Please provide a plugin name, like this: PLUGIN=vim-rails rake ..."
-  end
-end
-
-desc "Update all submodules"
-task :update_submodules do
-  system("git submodule foreach git pull origin master")
 end
