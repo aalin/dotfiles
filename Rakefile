@@ -40,7 +40,7 @@ def write?(source_path, destination_path)
 end
 
 def git_clone(repository, path)
-  system('git', 'clone', repository, path)
+  system('git', 'clone', repository, File.expand_path(path))
 end
 
 task :default => :install
