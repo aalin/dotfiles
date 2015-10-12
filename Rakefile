@@ -80,7 +80,7 @@ task :install do
   vundle_dir = File.join(vim_bundle_dir, 'Vundle.vim')
 
   unless File.directory?(File.join(vim_bundle_dir, 'Vundle.vim'))
-    git_clone('git://github.com/robbyrussell/oh-my-zsh.git', '~/.oh-my-zsh')
+    git_clone('https://github.com/VundleVim/Vundle.vim.git', '~/.vim/bundle/Vundle.vim')
     system('vim', '+PluginInstall', '+qall')
   end
 end
