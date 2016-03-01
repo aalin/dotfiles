@@ -9,10 +9,14 @@ set scrolloff=3
 set wildmenu
 set wildmode=list:longest,full
 
+set splitright
+set splitbelow
+
 set number
 set autoindent
 set tabstop=2
 set shiftwidth=2
+set expandtab
 
 syntax on
 filetype plugin indent on
@@ -23,17 +27,8 @@ autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 autocmd BufNewFile,BufRead *.jbuilder,*.jpbuilder setf ruby
 autocmd BufNewFile,BufRead *_spec.rb setf rspec
 
-autocmd Filetype html       setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype ruby       setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype slim       setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype scss       setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype coffee     setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype cucumber   setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype json       setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype markdown   setlocal ts=2 sts=2 sw=2 expandtab
-autocmd Filetype cpp,c      setlocal ts=4 sts=4 sw=4
-autocmd Filetype xml        setlocal ts=4 sts=4 sw=4
+autocmd Filetype cpp,c,re setlocal ts=4 sts=4 sw=4 noexpandtab
+autocmd Filetype re setlocal filetype=cpp ts=4 sts=4 sw=4 noexpandtab
 
 " Insert header guards, http://vim.wikia.com/wiki/Automatic_insertion_of_C/C%2B%2B_header_gates
 function! s:insert_gates()
@@ -44,6 +39,26 @@ function! s:insert_gates()
   normal! ko
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+
+function! Camelize(str) "{{{
+  return substitute(tolower(a:str), '^[a-z]\|_[a-z]'.'\C', '\= toupper(submatch(0)[0] ==# "_" ? submatch(0)[1:] : submatch(0))', 'g')
+endfunction "}}}
+
+function! s:insert_jsx_template()
+  let gatename = Camelize(expand("%:p:t:r"))
+  execute "normal! iimport React from 'react';\n"
+  execute "normal! oexport default class " . gatename . " extends React.Component {"
+  execute "normal! Go}"
+  normal! ko
+endfunction
+autocmd BufNewFile *.{jsx} call <SID>insert_jsx_template()
+
+" Gracefully handle holding shift too long after : for common commands
+cabbrev W w
+cabbrev Q q
+cabbrev Wq wq
+cabbrev Tabe tabe
+cabbrev Tabc tabc
 
 " Jump back to the last known position in the file.
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -103,12 +118,20 @@ Plugin 'vim-scripts/file-line'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'scrooloose/syntastic'
-Plugin 'kien/ctrlp.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'fatih/vim-go'
+Plugin 'fatih/vim-nginx'
+Plugin 'vim-scripts/SyntaxRange'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'rust-lang/rust.vim'
+Plugin 'rhysd/vim-crystal'
+Plugin 'jaxbot/semantic-highlight.vim'
 call vundle#end()
 filetype plugin indent on
+
+let g:rustfmt_autosave = 1
 
 set background=dark
 let g:solarized_termcolors=256
@@ -119,11 +142,13 @@ hi CursorLine cterm=none ctermbg=235
 
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_auto_loc_list=1
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = [] " ['eslint']
+" let g:syntastic_javascript_eslint_exec = 'npm-exec-eslint'
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = '-std=c++14'
+let g:syntastic_ruby_exec = '/Users/andreas/.rvm/rubies/ruby-2.2.2/bin/ruby'
+let g:syntastic_mri_exec = '/Users/andreas/.rvm/rubies/ruby-2.2.2/bin/ruby'
 highlight SyntasticError ctermbg=darkblue ctermfg=white
-
-" Fix arrow keys in Command-T
-map <Esc>[B <Down>
 
 " Make non-breaking spaces red
 autocmd BufNewFile,BufRead * highlight nbsp ctermbg=Red
@@ -147,7 +172,10 @@ map <leader>S :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+set rtp+=/usr/local/opt/fzf
+map <C-p> :FZF<CR>
+
+autocmd CompleteDone * pclose " Hide preview window after autocomplete.
 
 set exrc " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
