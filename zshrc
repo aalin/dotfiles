@@ -17,7 +17,15 @@ export HISTFILE=~/.zsh_history
 unsetopt extendedglob # So that I can do "git reset --soft HEAD^" without getting "zsh: no matches found: HEAD^"
 unsetopt share_history
 
-eval $(dircolors ~/.dircolors)
+if type brew &> /dev/null ; then
+  export PATH="/usr/local/opt/bison/bin:$PATH"
+  export PATH="/usr/local/opt/llvm/bin:$PATH"
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+  eval $(dircolors ~/.dircolors)
+fi
+
+export GOPATH=$HOME/go
 
 # Use LS_COLORS when completing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -44,17 +52,22 @@ export EDITOR=/usr/local/bin/vim
 bindkey "[D" backward-word
 bindkey "[C" forward-word
 
-which brew > /dev/null && PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-[[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
-[[ -s "$HOME/.pr0n" ]] && source "$HOME/.pr0n" # secret aliases :D
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
+[[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
+[[ -s "$HOME/.aliases.local" ]] && source "$HOME/.aliases.local"
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export PATH="$PATH:$HOME/.rvm/bin"
 
 export OCD_PATH=~/Projects/ocd
-source "$OCD_PATH/bin/ocd.zsh"
+[[ -s "$OCD_PATH" ]] && source "$OCD_PATH/bin/ocd.zsh"
 
-hitch() {
-  command hitch "$@"
-  if [[ -s "$HOME/.hitch_export_authors" ]] ; then source "$HOME/.hitch_export_authors" ; fi
-}
-alias unhitch='hitch -u'
+export NVM_DIR="/Users/andreas/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
