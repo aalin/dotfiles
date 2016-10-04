@@ -10,6 +10,7 @@
 	denyNonFastforwards = true
 
 [alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 	st = status
 	standup = shortlog --since=yesterday
 
@@ -42,4 +43,3 @@
 
 [difftool]
 	prompt = false
-
