@@ -26,9 +26,10 @@ autocmd BufNewFile,BufRead *.slim setf slim
 autocmd BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl setf glsl
 autocmd BufNewFile,BufRead *.jbuilder,*.jpbuilder setf ruby
 autocmd BufNewFile,BufRead *_spec.rb setf rspec
+autocmd BufNewFile,BufRead *.re setf cpp
+autocmd BufNewFile,BufRead *.y setf lemon
 
 autocmd Filetype cpp,c,re setlocal ts=4 sts=4 sw=4 noexpandtab
-autocmd Filetype re setlocal filetype=cpp ts=4 sts=4 sw=4 noexpandtab
 
 " Insert header guards, http://vim.wikia.com/wiki/Automatic_insertion_of_C/C%2B%2B_header_gates
 function! s:insert_gates()
@@ -47,8 +48,7 @@ endfunction "}}}
 function! s:insert_jsx_template()
   let gatename = Camelize(expand("%:p:t:r"))
   execute "normal! iimport React from 'react';\n"
-  execute "normal! oexport default class " . gatename . " extends React.Component {"
-  execute "normal! Go}"
+  execute "normal! oexport default\nfunction " . gatename . "() {\n}"
   normal! ko
 endfunction
 autocmd BufNewFile *.{jsx} call <SID>insert_jsx_template()
@@ -117,17 +117,19 @@ Plugin 'godlygeek/tabular'
 Plugin 'vim-scripts/file-line'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-ruby/vim-ruby'
-Plugin 'scrooloose/syntastic'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'fatih/vim-go'
 Plugin 'fatih/vim-nginx'
 Plugin 'vim-scripts/SyntaxRange'
-Plugin 'marijnh/tern_for_vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'rhysd/vim-crystal'
 Plugin 'jaxbot/semantic-highlight.vim'
+Plugin 'tikhomirov/vim-glsl'
+Plugin 'jparise/vim-graphql'
+Plugin 'alunny/pegjs-vim'
+Plugin 'aalin/vim-music5'
 call vundle#end()
 filetype plugin indent on
 
@@ -139,16 +141,6 @@ colorscheme solarized
 
 set cursorline
 hi CursorLine cterm=none ctermbg=235
-
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_auto_loc_list=1
-let g:syntastic_javascript_checkers = [] " ['eslint']
-" let g:syntastic_javascript_eslint_exec = 'npm-exec-eslint'
-let g:syntastic_cpp_compiler = 'clang++'
-let g:syntastic_cpp_compiler_options = '-std=c++14'
-let g:syntastic_ruby_exec = '/Users/andreas/.rvm/rubies/ruby-2.2.2/bin/ruby'
-let g:syntastic_mri_exec = '/Users/andreas/.rvm/rubies/ruby-2.2.2/bin/ruby'
-highlight SyntasticError ctermbg=darkblue ctermfg=white
 
 " Make non-breaking spaces red
 autocmd BufNewFile,BufRead * highlight nbsp ctermbg=Red
@@ -179,3 +171,5 @@ autocmd CompleteDone * pclose " Hide preview window after autocomplete.
 
 set exrc " enable per-directory .vimrc files
 set secure " disable unsafe commands in local .vimrc files
+
+highlight Normal ctermfg=248 ctermbg=234
