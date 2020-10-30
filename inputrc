@@ -7,4 +7,3 @@ set blink-matching-paren on
 "\033[4~": end-of-line
 "\033[5~": beginning-of-history
 "\033[6~": end-of-history
-

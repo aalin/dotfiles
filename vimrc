@@ -158,12 +158,6 @@ map <leader>S :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-" iTerm2.
-" Change cursor shape in insert mode.
-" http://www.iterm2.com/#/section/documentation/escape_codes
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 set rtp+=/usr/local/opt/fzf
 map <C-p> :FZF<CR>
 
