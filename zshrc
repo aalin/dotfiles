@@ -1,7 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="aalin"
 
-plugins=(git rails brew git-escape-magic bundler pow zsh-syntax-highlighting)
+plugins=(git rails brew git-escape-magic bundler)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,14 +43,14 @@ bindkey '^[[A' up-line-or-search
 bindkey '^[[B' down-line-or-search
 bindkey '^[[C' forward-char
 bindkey '^[[D' backward-char
+bindkey "[D" backward-word
+bindkey "[C" forward-word
 
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 export EDITOR=/usr/local/bin/vim
 
-bindkey "[D" backward-word
-bindkey "[C" forward-word
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 [[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
@@ -59,9 +59,6 @@ bindkey "[C" forward-word
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export PATH="$PATH:$HOME/.rvm/bin"
 
-export OCD_PATH=~/Projects/ocd
-[[ -s "$OCD_PATH" ]] && source "$OCD_PATH/bin/ocd.zsh"
-
 export NVM_DIR="/Users/andreas/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -69,5 +66,3 @@ export NVM_DIR="/Users/andreas/.nvm"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
