@@ -53,5 +53,6 @@ install dircolors       ~/.dircolors
 install tmux.conf       ~/.tmux.conf
 install pryrc           ~/.pryrc
 install aalin.zsh-theme ~/.oh-my-zsh/themes/aalin.zsh-theme
+install alacritty.yml   ~/.config/alacritty/alacritty.yml
 
 setupVundle

@@ -1,11 +1,11 @@
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="aalin"
+export ZSH_DISABLE_COMPFIX=true
 
 plugins=(git rails brew git-escape-magic bundler)
 
 source $ZSH/oh-my-zsh.sh
 
-# For some reason I have to do compinit here, to get completion to work with cp.
 compinit
 
 export LC_ALL=en_US.UTF-8
@@ -66,3 +66,4 @@ export NVM_DIR="/Users/andreas/.nvm"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
