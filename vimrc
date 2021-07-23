@@ -96,33 +96,38 @@ hi StatusLineNC cterm=none ctermbg=white ctermfg=black
 
 let Tlist_Ctags_Cmd='/usr/local/bin/ctags'
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-rails'
-Plugin 'godlygeek/tabular'
-Plugin 'vim-scripts/file-line'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'fatih/vim-go'
-Plugin 'fatih/vim-nginx'
-Plugin 'vim-scripts/SyntaxRange'
-Plugin 'rust-lang/rust.vim'
-Plugin 'rhysd/vim-crystal'
-Plugin 'jaxbot/semantic-highlight.vim'
-Plugin 'tikhomirov/vim-glsl'
-Plugin 'jparise/vim-graphql'
-Plugin 'alunny/pegjs-vim'
-Plugin 'aalin/vim-music5'
-call vundle#end()
-filetype plugin indent on
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'VundleVim/Vundle.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-haml'
+Plug 'tpope/vim-rails'
+Plug 'godlygeek/tabular'
+Plug 'vim-scripts/file-line'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-ruby/vim-ruby'
+Plug 'pangloss/vim-javascript'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'elixir-lang/vim-elixir'
+Plug 'fatih/vim-go'
+Plug 'fatih/vim-nginx'
+Plug 'vim-scripts/SyntaxRange'
+Plug 'rust-lang/rust.vim'
+Plug 'rhysd/vim-crystal'
+Plug 'jaxbot/semantic-highlight.vim'
+Plug 'tikhomirov/vim-glsl'
+Plug 'jparise/vim-graphql'
+Plug 'alunny/pegjs-vim'
+Plug 'LnL7/vim-nix'
+Plug 'leafgarland/typescript-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
 
 let g:rustfmt_autosave = 1
 
