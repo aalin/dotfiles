@@ -2,7 +2,7 @@
 
 set -e
 
-ROOT=$(dirname "$(greadlink -f "$0")")
+ROOT=$(dirname "$(readlink -f "$0")")
 
 function install() {
   local source="$ROOT/$1"
