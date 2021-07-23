@@ -30,21 +30,9 @@ function install() {
   ln -s "$source" "$target"
 }
 
-function setupVundle() {
-  local vimBundleDir=~/.vim/bundle
-  local vundleDir="$vimBundleDir/Vundle.vim"
-
-  if [[ ! -d "$vundleDir" ]]; then
-    echo "Setting up vundle"
-
-    mkdir -p "$vimBundleDir"
-
-    git clone https://github.com/VundleVim/Vundle.vim.git "$vundleDir"
-    vim +PluginInstall +qall
-  fi
-}
-
 install vimrc           ~/.vimrc
+install vim/config      ~/.vim/config
+install vim/ftplugin    ~/.vim/ftplugin
 install gitconfig       ~/.gitconfig
 install gitignore       ~/.gitignore
 install aliases         ~/.aliases
@@ -54,5 +42,3 @@ install tmux.conf       ~/.tmux.conf
 install pryrc           ~/.pryrc
 install aalin.zsh-theme ~/.oh-my-zsh/themes/aalin.zsh-theme
 install alacritty.yml   ~/.config/alacritty/alacritty.yml
-
-setupVundle
