@@ -18,6 +18,9 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+set modeline
+set modelines=5
+
 syntax on
 filetype plugin indent on
 
