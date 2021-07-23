@@ -4,17 +4,29 @@ set -e
 
 ROOT=$(dirname "$(readlink -f "$0")")
 
-function install() {
+function success {
+  echo -e "\e[32m$*\e[0m"
+}
+
+function warn {
+  echo -e "\e[33m$*\e[0m"
+}
+
+function error {
+  echo -e "\e[31m$*\e[0m"
+}
+
+function install {
   local source="$ROOT/$1"
   local target=$2
 
   if [[ ! -a "$source" ]]; then
-    echo -e "$source does not exist!"
+    error "$source does not exist!"
     return 1
   fi
 
   if [[ -a "$target" ]]; then
-    echo -e "$target already exists, skipping"
+    warn "$target already exists, skipping"
     return 0
   fi
 
@@ -22,11 +34,11 @@ function install() {
   targetDir=$(dirname "$target")
 
   if [[ ! -d "$targetDir" ]]; then
-    echo "Creating $targetDir"
+    success "Creating $targetDir"
     mkdir -p "$targetDir"
   fi
 
-  echo "Creating symlink from ${target} to ${source}"
+  success "Creating symlink from ${target} to ${source}"
   ln -s "$source" "$target"
 }
 
