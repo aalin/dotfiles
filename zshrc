@@ -22,6 +22,9 @@ if type brew &> /dev/null ; then
   export PATH="/usr/local/opt/llvm/bin:$PATH"
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+fi
+
+if type dircolors &> /dev/null ; then
   eval $(dircolors ~/.dircolors)
 fi
 
