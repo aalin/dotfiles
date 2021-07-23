@@ -1,9 +1,4 @@
 [core]
-	repositoryformatversion = 0
-	filemode = true
-	bare = false
-	logallrefupdates = true
-	sharedrepository = 1
 	excludesfile = ~/.gitignore
 
 [receive]
