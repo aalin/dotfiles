@@ -44,18 +44,6 @@ function! s:insert_gates()
 endfunction
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
 
-function! Camelize(str) "{{{
-  return substitute(tolower(a:str), '^[a-z]\|_[a-z]'.'\C', '\= toupper(submatch(0)[0] ==# "_" ? submatch(0)[1:] : submatch(0))', 'g')
-endfunction "}}}
-
-function! s:insert_jsx_template()
-  let gatename = Camelize(expand("%:p:t:r"))
-  execute "normal! iimport React from 'react';\n"
-  execute "normal! oexport default\nfunction " . gatename . "() {\n}"
-  normal! ko
-endfunction
-autocmd BufNewFile *.{jsx} call <SID>insert_jsx_template()
-
 " Gracefully handle holding shift too long after : for common commands
 cabbrev W w
 cabbrev Q q
