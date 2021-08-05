@@ -30,4 +30,9 @@ Plug 'LnL7/vim-nix'
 Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tomarrell/vim-npr'
+Plug 'junegunn/fzf.vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'branch': 'release/0.x'
+  \ }
 call plug#end()
