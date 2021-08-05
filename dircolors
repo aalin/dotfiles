@@ -216,7 +216,7 @@ EXEC 01;32
 .spx 00;36
 .xspf 00;36
 # code
-.scss 00;38;5;120 # Greenish
+.css 00;38;5;120 # Greenish
 .jsx 00;38;5;226 # Orangeyellow
 .js 00;38;5;220 # Darker orange
 .json 00;38;5;214 # Even darker orange
