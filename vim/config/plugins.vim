@@ -8,31 +8,18 @@ call plug#begin('~/.vim/plugged')
 Plug 'VundleVim/Vundle.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-haml'
 Plug 'tpope/vim-rails'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/file-line'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-ruby/vim-ruby'
-Plug 'pangloss/vim-javascript'
-Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'elixir-lang/vim-elixir'
-Plug 'fatih/vim-go'
-Plug 'fatih/vim-nginx'
 Plug 'vim-scripts/SyntaxRange'
-Plug 'rust-lang/rust.vim'
-Plug 'rhysd/vim-crystal'
 Plug 'jaxbot/semantic-highlight.vim'
-Plug 'tikhomirov/vim-glsl'
-Plug 'jparise/vim-graphql'
-Plug 'alunny/pegjs-vim'
-Plug 'LnL7/vim-nix'
-Plug 'leafgarland/typescript-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tomarrell/vim-npr'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', {
   \ 'do': 'npm install',
   \ 'branch': 'release/0.x'
   \ }
+Plug 'sheerun/vim-polyglot'
 call plug#end()
