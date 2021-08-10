@@ -22,4 +22,5 @@ Plug 'prettier/vim-prettier', {
   \ 'branch': 'release/0.x'
   \ }
 Plug 'sheerun/vim-polyglot'
+Plug 'nathanaelkane/vim-indent-guides'
 call plug#end()

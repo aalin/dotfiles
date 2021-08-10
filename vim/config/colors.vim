@@ -20,3 +20,6 @@ autocmd BufNewFile,BufRead * match nbsp "[\xc2\xa0]"
 
 autocmd BufNewFile,BufRead * highlight trailing_spaces ctermbg=Red
 autocmd BufNewFile,BufRead * match trailing_spaces /\s\+$/
+
+hi IndentGuidesEven ctermbg=235
+hi IndentGuidesOdd ctermbg=234
