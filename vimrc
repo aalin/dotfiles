@@ -1,3 +1,5 @@
+let mapleader = ","
+
 source ~/.vim/config/plugins.vim
 source ~/.vim/config/settings.vim
 source ~/.vim/config/filetypes.vim

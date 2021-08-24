@@ -1,7 +1,6 @@
 " Non-breaking spaces to space
 inoremap   <Space>
 
-let mapleader = ","
 " Toggle search higlighting
 map <Leader><Leader> :set hlsearch!<CR>
 " Jump to .hpp-files from .cpp-files and vice versa.
