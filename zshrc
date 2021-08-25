@@ -52,8 +52,11 @@ bindkey "[C" forward-word
 export PATH=$HOME/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-export EDITOR=/usr/local/bin/vim
-
+if [[ -f /usr/local/bin/vim ]]; then
+  export EDITOR=/usr/local/bin/vim
+else
+  export EDITOR=vim
+fi
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 [[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
