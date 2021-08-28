@@ -1,3 +1,11 @@
+if has("nvim")
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+else
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -6,7 +14,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'VundleVim/Vundle.vim'
-Plug 'altercation/vim-colors-solarized'
+Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'godlygeek/tabular'
@@ -23,4 +31,5 @@ Plug 'prettier/vim-prettier', {
   \ }
 Plug 'sheerun/vim-polyglot'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'ap/vim-css-color'
 call plug#end()
