@@ -29,5 +29,5 @@ else
 	ZSH_THEME_GIT_PROMPT_DIRTY="%F{196}✻%{$reset_color%}"
 	ZSH_THEME_GIT_PROMPT_CLEAN=""
 
-	PROMPT=$'%F{196}%M %F{202}%~%{$reset_color%}$(git_prompt_info)%{\e[%(?.32.31);1m%} ➔%{$reset_color%} '
+	PROMPT=$'%F{196}%M %F{202}%~%{$reset_color%}$(git_prompt_info_with_pair)%{\e[%(?.32.31);1m%} ➔%{$reset_color%} '
 fi
