@@ -68,7 +68,7 @@ export PATH="$PATH:$HOME/.rvm/bin"
 if [[ -z "${DEVBOX}" ]]; then
   export NVM_DIR="/Users/andreas/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-end
+fi
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
