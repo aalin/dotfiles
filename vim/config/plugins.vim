@@ -13,7 +13,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'VundleVim/Vundle.vim'
 Plug 'lifepillar/vim-solarized8'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
@@ -25,10 +24,7 @@ Plug 'jaxbot/semantic-highlight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'branch': 'release/0.x'
-  \ }
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'sheerun/vim-polyglot'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
