@@ -2,6 +2,10 @@
 
 set -e
 
+if command -v greadlink > /dev/null; then
+  readlink() { greadlink $* }
+fi
+
 ROOT=$(dirname "$(readlink -f "$0")")
 
 function success {
