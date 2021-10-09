@@ -2,7 +2,7 @@ export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="aalin"
 export ZSH_DISABLE_COMPFIX=true
 
-plugins=(git rails brew git-escape-magic bundler)
+plugins=(git rails brew git-escape-magic bundler asdf)
 
 source $ZSH/oh-my-zsh.sh
 
