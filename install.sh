@@ -5,15 +5,15 @@ set -e
 ROOT=$(dirname "$(readlink -f "$0")")
 
 function success {
-  echo -e "\e[32m$*\e[0m"
+  echo -e "\x1b[32m$*\x1b[0m"
 }
 
 function warn {
-  echo -e "\e[33m$*\e[0m"
+  echo -e "\x1b[33m$*\x1b[0m"
 }
 
 function error {
-  echo -e "\e[31m$*\e[0m"
+  echo -e "\x1b[31m$*\x1b[0m"
 }
 
 function install {
