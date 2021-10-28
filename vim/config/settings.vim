@@ -12,6 +12,8 @@ set wildmode=list:longest,full
 set splitright
 set splitbelow
 
+set cursorline
+
 set number
 set autoindent
 set tabstop=2
