@@ -219,6 +219,8 @@ EXEC 01;32
 .css 00;38;5;120 # Greenish
 .jsx 00;38;5;226 # Orangeyellow
 .js 00;38;5;220 # Darker orange
+.tsx 00;38;5;226 # Orangeyellow
+.ts 00;38;5;220 # Darker orange
 .json 00;38;5;214 # Even darker orange
 .rb 00;38;5;210 # Light red
 .cpp 00;38;5;226 # Orangeyellow
