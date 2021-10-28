@@ -28,4 +28,6 @@ Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'sheerun/vim-polyglot'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
+Plug '907th/vim-auto-save'
+Plug 'alunny/pegjs-vim'
 call plug#end()
