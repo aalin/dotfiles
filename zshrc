@@ -25,7 +25,7 @@ if type brew &> /dev/null ; then
 fi
 
 if type dircolors &> /dev/null ; then
-  eval $(dircolors ~/.dircolors)
+  eval $(TERM=xterm-256color dircolors ~/.dircolors)
 fi
 
 export GOPATH=$HOME/go
