@@ -8,3 +8,11 @@ function! s:insert_gates()
 endfunction
 
 autocmd BufNewFile *.{h,hpp} call <SID>insert_gates()
+
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal noexpandtab
+setlocal smarttab
+setlocal noexpandtab
+setlocal autoindent
