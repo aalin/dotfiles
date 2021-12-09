@@ -2,19 +2,32 @@ autocmd BufNewFile,BufRead * match NonBreakingSpace "[\xc2\xa0]"
 autocmd BufNewFile,BufRead * match TrailingSpaces /\s\+$/
 
 function SetupColorOverrides() abort
-  highlight Search ctermfg=black ctermbg=yellow
+  let l:colorscheme=get(g:, 'colors_name', 'default')
 
-  highlight StatusLine ctermfg=250 ctermbg=black
-  highlight StatusLineNC ctermfg=241 ctermbg=black
+  if l:colorscheme == "solarized8"
+    highlight Search ctermfg=black ctermbg=yellow
 
-  " Increase contrast
-  highlight Normal ctermfg=248 ctermbg=234 guifg=#dddddd guibg=#001d25
-  highlight LineNr guibg=#052933
+    highlight StatusLine ctermfg=250 ctermbg=black
+    highlight StatusLineNC ctermfg=241 ctermbg=black
 
-  highlight CursorLine cterm=none ctermbg=235 guibg=#052933
+    " Increase contrast
+    highlight Normal ctermfg=248 ctermbg=234 guifg=#dddddd guibg=#001d25
+    highlight LineNr guibg=#052933
 
-  highlight IndentGuidesEven ctermbg=235
-  highlight IndentGuidesOdd ctermbg=234
+    highlight CursorLine cterm=none ctermbg=235 guibg=#052933
+
+    highlight IndentGuidesEven ctermbg=235
+    highlight IndentGuidesOdd ctermbg=234
+  endif
+
+  if l:colorscheme == "true"
+    highlight CursorLine cterm=none ctermbg=235 guibg=#3a2143
+  endif
+
+  if l:colorscheme == "srcery"
+    highlight Search guibg=#ffcc00 guifg=#000000
+    highlight IncSearch guibg=#fff677 guifg=#000000
+  endif
 
   highlight NonBreakingSpace ctermbg=Red
   highlight TrailingSpaces ctermbg=Red
@@ -25,6 +38,14 @@ augroup ColorOverrides
   autocmd ColorScheme * call SetupColorOverrides()
 augroup END
 
+if has("nvim")
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  set termguicolors
+else
+  set termguicolors
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+
 set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized8
+colorscheme srcery

@@ -1,11 +1,3 @@
-if has("nvim")
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-else
-  set termguicolors
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -13,7 +5,9 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'lifepillar/vim-solarized8'
+" Plug 'lifepillar/vim-solarized8'
+Plug 'maximumtiu/true.vim'
+Plug 'srcery-colors/srcery-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'godlygeek/tabular'
@@ -31,3 +25,8 @@ Plug 'ap/vim-css-color'
 Plug '907th/vim-auto-save'
 Plug 'alunny/pegjs-vim'
 call plug#end()
+
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#autoformat_config_present = 1
+let g:prettier#exec_cmd_async = 1
