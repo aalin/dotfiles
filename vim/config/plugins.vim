@@ -8,6 +8,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'lifepillar/vim-solarized8'
 Plug 'maximumtiu/true.vim'
 Plug 'srcery-colors/srcery-vim'
+Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'godlygeek/tabular'

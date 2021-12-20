@@ -49,3 +49,17 @@ endif
 
 set background=dark
 colorscheme srcery
+
+let g:lightline = {
+\ 'colorscheme': 'default',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ]
+\ },
+\ 'component_function': {
+\   'gitbranch': 'FugitiveHead',
+\   'cocstatus': 'coc#status',
+\ },
+\ }
+
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
