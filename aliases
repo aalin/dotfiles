@@ -21,3 +21,5 @@ alias gl='echo git pull --rebase'
 alias gdc='git diff --cached'
 
 function docker-machine-use() { eval "$(docker-machine env $1)" }
+
+alias vim=nvim
