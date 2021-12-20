@@ -41,6 +41,8 @@ augroup END
 if has("nvim")
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
+  set pumblend=30
+  set winblend=30
 else
   set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
