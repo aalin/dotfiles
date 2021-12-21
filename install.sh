@@ -3,7 +3,9 @@
 set -e
 
 if command -v greadlink > /dev/null; then
-  readlink() { greadlink $* }
+  function readlink() {
+    greadlink $*
+  }
 fi
 
 ROOT=$(dirname "$(readlink -f "$0")")
