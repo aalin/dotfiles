@@ -26,3 +26,8 @@ vmap <Leader>t :s/\s\+$//<CR>
 " Press space to insert 1 character
 map <Space> i_<Esc>r
 map <C-w>o <Nop>
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
