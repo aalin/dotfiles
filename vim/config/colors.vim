@@ -27,6 +27,7 @@ function SetupColorOverrides() abort
   if l:colorscheme == "srcery"
     highlight Search guibg=#ffcc00 guifg=#000000
     highlight IncSearch guibg=#fff677 guifg=#000000
+    highlight CursorLine guibg=#252421
   endif
 
   highlight NonBreakingSpace ctermbg=Red
@@ -51,6 +52,8 @@ endif
 
 set background=dark
 colorscheme srcery
+
+set noshowmode " hide mode because lightline will show it anyways
 
 let g:lightline = {
 \ 'colorscheme': 'default',
