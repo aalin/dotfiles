@@ -5,7 +5,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-" Plug 'lifepillar/vim-solarized8'
 Plug 'maximumtiu/true.vim'
 Plug 'srcery-colors/srcery-vim'
 Plug 'itchyny/lightline.vim'
@@ -15,17 +14,47 @@ Plug 'godlygeek/tabular'
 Plug 'vim-scripts/file-line'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/SyntaxRange'
-Plug 'jaxbot/semantic-highlight.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-Plug 'sheerun/vim-polyglot'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ap/vim-css-color'
 Plug '907th/vim-auto-save'
 Plug 'alunny/pegjs-vim'
+Plug 'aalin/animated-search-highlight.vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+  indent = {
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = "gnn",
+      node_incremental = "grn",
+      scope_incremental = "grc",
+      node_decremental = "grm",
+    },
+  },
+}
+
+require('telescope').setup{
+  defaults = {
+    winblend = 30,
+    layout_strategy = "horizontal"
+  },
+}
+EOF
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0
