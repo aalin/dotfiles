@@ -50,6 +50,10 @@ else
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+if exists('g:started_by_firenvim')
+  set guifont=PragmataPro:h20
+endif
+
 set background=dark
 colorscheme srcery
 
