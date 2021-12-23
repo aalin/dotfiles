@@ -1,5 +1,8 @@
-autocmd BufNewFile,BufRead * match NonBreakingSpace "[\xc2\xa0]"
-autocmd BufNewFile,BufRead * match TrailingSpaces /\s\+$/
+function SetupMatches() abort
+  match NonBreakingSpace "[\xc2\xa0]"
+  match TrailingSpaces /\s\+$/
+  match LongLine '\%>79v.\+'
+endfunction
 
 function SetupColorOverrides() abort
   let l:colorscheme=get(g:, 'colors_name', 'default')
@@ -32,12 +35,18 @@ function SetupColorOverrides() abort
 
   highlight NonBreakingSpace ctermbg=Red
   highlight TrailingSpaces ctermbg=Red
+
+  highlight LongLine guibg=#470a03
 endfunction
 
 augroup ColorOverrides
   autocmd!
   autocmd ColorScheme * call SetupColorOverrides()
+  autocmd BufNewFile,BufRead * call SetupMatches()
 augroup END
+
+match LongLine80 '\%>80v.\+'
+highlight LongLine80 guibg=#470a03
 
 if has("nvim")
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
