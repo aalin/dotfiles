@@ -19,7 +19,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'ap/vim-css-color'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug '907th/vim-auto-save'
 Plug 'alunny/pegjs-vim'
 Plug 'aalin/animated-search-highlight.vim'
@@ -27,6 +27,9 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
+
+set termguicolors " nvim-colorizer.lua requires this
+lua require'colorizer'.setup()
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
