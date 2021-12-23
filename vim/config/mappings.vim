@@ -24,7 +24,9 @@ vmap <S-Tab> <
 vmap <Leader>t :s/\s\+$//<CR>
 
 " Press space to insert 1 character
-map <Space> i_<Esc>r
+map <Space> i<Space><Esc>r
+
+" This hides all other splits and is super annoying, so disabled.
 map <C-w>o <Nop>
 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
