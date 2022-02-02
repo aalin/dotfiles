@@ -7,14 +7,13 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'maximumtiu/true.vim'
 Plug 'srcery-colors/srcery-vim'
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-rails'
 Plug 'godlygeek/tabular'
 Plug 'vim-scripts/file-line'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/SyntaxRange'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
@@ -26,50 +25,18 @@ Plug 'aalin/animated-search-highlight.vim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'sunjon/shade.nvim'
+" Plug 'sunjon/shade.nvim'
 Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+Plug 'alec-gibson/nvim-tetris'
+Plug 'kyazdani42/nvim-web-devicons' " Recommended (for coloured icons)
+" Plug 'ryanoasis/vim-devicons' " Icons without colours
+Plug 'akinsho/bufferline.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'akinsho/toggleterm.nvim'
+Plug 'ntpeters/vim-better-whitespace'
 call plug#end()
-
-set termguicolors " nvim-colorizer.lua requires this
-lua require'colorizer'.setup()
-
-lua << EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-  },
-  indent = {
-    enable = true,
-  },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
-  },
-}
-
-require('telescope').setup{
-  defaults = {
-    winblend = 30,
-    layout_strategy = "horizontal"
-  },
-}
-
-require'shade'.setup({
-  overlay_opacity = 50,
-  opacity_step = 1,
-  keys = {
-    brightness_up    = '<C-Up>',
-    brightness_down  = '<C-Down>',
-    toggle           = '<Leader>s',
-  }
-})
-EOF
 
 let g:prettier#autoformat = 1
 let g:prettier#autoformat_require_pragma = 0

@@ -57,13 +57,13 @@ augroup END
 match LongLine80 '\%>80v.\+'
 highlight LongLine80 guibg=#470a03
 
+set termguicolors
+
 if has("nvim")
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  set termguicolors
   set pumblend=30
   set winblend=30
 else
-  set termguicolors
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
@@ -78,17 +78,3 @@ set background=dark
 colorscheme srcery
 
 set noshowmode " hide mode because lightline will show it anyways
-
-let g:lightline = {
-\ 'colorscheme': 'default',
-\ 'active': {
-\   'left': [ [ 'mode', 'paste' ],
-\             [ 'gitbranch', 'readonly', 'filename', 'modified', 'cocstatus' ] ]
-\ },
-\ 'component_function': {
-\   'gitbranch': 'FugitiveHead',
-\   'cocstatus': 'coc#status',
-\ },
-\ }
-
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()

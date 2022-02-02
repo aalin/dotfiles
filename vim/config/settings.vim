@@ -54,7 +54,3 @@ map <leader>S :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> t
 
 set rtp+=/usr/local/opt/fzf
 map <C-p> :FZF<CR>
-
-autocmd CompleteDone * pclose " Hide preview window after autocomplete.
-
-source ~/.vim/config/coc.vim
