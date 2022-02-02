@@ -1,6 +1,5 @@
 function SetupMatches() abort
   match NonBreakingSpace "[\xc2\xa0]"
-  match TrailingSpaces /\s\+$/
   match LongLine '\%>79v.\+'
 endfunction
 
@@ -34,7 +33,17 @@ function SetupColorOverrides() abort
   endif
 
   highlight NonBreakingSpace ctermbg=Red
-  highlight TrailingSpaces ctermbg=Red
+
+  " Transparent background
+  highlight Normal ctermbg=none guibg=none
+  highlight NonText ctermbg=none guibg=none
+  highlight SignColumn ctermbg=none guibg=none
+  highlight NormalNC ctermbg=none guibg=none
+  highlight MsgArea ctermbg=none guibg=none
+  highlight TelescopeBorder ctermbg=none guibg=none
+  highlight NvimTreeNormal ctermbg=none guibg=none
+
+  let &fcs='eob: '
 
   highlight LongLine guibg=#470a03
 endfunction
@@ -61,6 +70,8 @@ endif
 
 if exists('g:started_by_firenvim')
   set guifont=PragmataPro:h20
+else
+  set guifont=PragmataPro:h14
 endif
 
 set background=dark
