@@ -26,6 +26,8 @@ set modelines=5
 set incsearch
 set hlsearch
 
+set timeoutlen=500
+
 syntax on
 
 " Gracefully handle holding shift too long after : for common commands

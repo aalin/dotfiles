@@ -17,7 +17,7 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug '907th/vim-auto-save'
 Plug 'alunny/pegjs-vim'
@@ -36,6 +36,7 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'folke/which-key.nvim'
 call plug#end()
 
 let g:prettier#autoformat = 1

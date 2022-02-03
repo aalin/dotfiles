@@ -8,12 +8,13 @@ source ~/.vim/config/colors.vim
 
 lua << EOF
 require('lspconfig-mappings')
-require('telescope-mappings')
-require('setup/telescope')
 require('setup/bufferline')
 require('setup/colorizer')
+require('setup/indent-blankline')
 require('setup/lspconfig')
 require('setup/lualine')
+require('setup/telescope')
 require('setup/toggleterm')
 require('setup/treesitter')
+require('setup/which-key')
 EOF

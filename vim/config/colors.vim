@@ -43,8 +43,6 @@ function SetupColorOverrides() abort
   highlight TelescopeBorder ctermbg=none guibg=none
   highlight NvimTreeNormal ctermbg=none guibg=none
 
-  let &fcs='eob: '
-
   highlight LongLine guibg=#470a03
 endfunction
 
