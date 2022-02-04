@@ -55,11 +55,7 @@ export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
-if [[ -f /usr/local/bin/vim ]]; then
-  export EDITOR=/usr/local/bin/vim
-else
-  export EDITOR=vim
-fi
+export EDITOR=nvim
 
 [[ -s "$HOME/.profile" ]] && source "$HOME/.profile"
 [[ -s "$HOME/.aliases" ]] && source "$HOME/.aliases"
