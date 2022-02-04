@@ -28,6 +28,8 @@ if type dircolors &> /dev/null ; then
   eval $(TERM=xterm-256color dircolors ~/.dircolors)
 fi
 
+export COLORTERM=24bit
+
 export GOPATH=$HOME/go
 
 # Use LS_COLORS when completing
