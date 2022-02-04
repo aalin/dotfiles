@@ -52,6 +52,7 @@ bindkey "[D" backward-word
 bindkey "[C" forward-word
 
 export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 
 if [[ -f /usr/local/bin/vim ]]; then
