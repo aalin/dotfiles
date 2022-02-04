@@ -75,3 +75,7 @@ export PATH="/usr/local/heroku/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export FZF_DEFAULT_COMMAND='fd --type f'
+
+if [[ -f ~/.config/broot/launcher/bash/br ]]; then
+  source ~/.config/broot/launcher/bash/br
+fi
