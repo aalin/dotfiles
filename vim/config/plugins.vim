@@ -37,6 +37,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'folke/which-key.nvim'
+Plug 'numToStr/Comment.nvim'
 call plug#end()
 
 let g:prettier#autoformat = 1

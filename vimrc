@@ -16,5 +16,6 @@ require('setup/lualine')
 require('setup/telescope')
 require('setup/toggleterm')
 require('setup/treesitter')
+require('setup/Comment')
 require('setup/which-key')
 EOF

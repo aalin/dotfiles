@@ -77,8 +77,29 @@ wk.register({
   i = { "<cmd>IndentBlanklineToggle<cr>", "Toggle IndentBlankline" },
   [" "] = { "<cmd>set hlsearch!<cr>", "Toggle search highlight" },
   s = "Strip whitespace",
-	p = { "<cmd>set paste!<cr>", "Toggle paste" },
-  P = { "<cmd>Prettier<cr>", "Prettier" }
+  p = { "<cmd>set paste!<cr>", "Toggle paste" },
+  P = { "<cmd>Prettier<cr>", "Prettier" },
+  q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Diagnostics locations" },
+  l = {
+    name = "LSP",
+    i = { "<cmd>lua vim.lsp.buf.implementation()<cr>" , "Go to implementation"},
+    k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Add workspace folder" },
+    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
+    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Formatting" },
+    I = { "<cmd>LspInfo<cr>", "Lsp Info" },
+    S = { "<cmd>LspStart<cr>", "Lsp Start" },
+    X = { "<cmd>LspStop<cr>", "Lsp Stop" },
+    R = { "<cmd>LspRestart<cr>", "Lsp Restart" },
+  },
+  w = {
+    name = "Workspace",
+    a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add workspace folder" },
+    r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove workspace folder" },
+    l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", "Remove workspace folder" },
+  },
+  D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Type definition" },
+  K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Show type" }
 }, { prefix = "<leader>" })
 
 vim.opt.timeoutlen = 200
