@@ -1,10 +1,5 @@
 [core]
-	pager = delta
 	excludesfile = ~/.gitignore
-
-[user]
-	name = Andreas Alin
-	email = andreas.alin@gmail.com
 
 [receive]
 	denyNonFastforwards = true
@@ -20,20 +15,15 @@
 [pager]
 	color = true
 
-[delta]
-	navigate = true
-	side-by-side = true
-
 [diff]
-	colorMoved = default
 	color = auto
 
-[interactive]
-	diffFilter = delta --color-only
+[user]
+	name = Andreas Alin
+	email = andreas.alin@gmail.com
 
 [merge]
 	tool = vimdiff
-	conflictstyle = diff3
 
 [mergetool "vimdiff"]
 	cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE"
@@ -48,9 +38,7 @@
 
 [difftool]
 	prompt = false
-
 [pull]
 	rebase = true
-
 [init]
 	defaultBranch = main
