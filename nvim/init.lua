@@ -1,11 +1,10 @@
--- Install packer
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  vim.fn.execute('!git clone https://github.com/wbthomason/packer.nvim ' .. install_path)
-end
+-- vim: ts=2 sts=2 sw=2 et
+--
+-- Based on https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua
 
 vim.cmd [[
+  packadd packer.nvim
+
   augroup Packer
     autocmd!
     autocmd BufWritePost init.lua PackerCompile
@@ -17,11 +16,11 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
-  use 'ludovicchabant/vim-gutentags' -- Automatic tags management
+  -- use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
+  -- use 'mjlbach/onedark.nvim' -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim' -- Fancier statusline
   -- Add indentation guides even on blank lines
   use 'lukas-reineke/indent-blankline.nvim'
@@ -36,16 +35,29 @@ require('packer').startup(function(use)
   use 'hrsh7th/cmp-nvim-lsp'
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+  use 'tpope/vim-surround'
+  use 'aalin/animated-search-highlight.vim' -- Animated search highlights
+  use 'folke/which-key.nvim' -- Press space for a menu
+  use 'srcery-colors/srcery-vim' -- Color theme
+  use 'norcalli/nvim-colorizer.lua'
+  use 'ntpeters/vim-better-whitespace'
+  use 'akinsho/toggleterm.nvim'
+  use 'vim-scripts/file-line'
+  use 'tpope/vim-sleuth'
+  use 'tpope/vim-rails'
+  use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
+  use 'chrisbra/unicode.vim'
 end)
 
 --Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 --Make line numbers default
 vim.wo.number = true
 
---Enable mouse mode
-vim.o.mouse = 'a'
+--Disable mouse mode
+vim.o.mouse = ''
 
 --Enable break indent
 vim.o.breakindent = true
@@ -61,13 +73,91 @@ vim.o.smartcase = true
 vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
+vim.o.wildmenu = true
+vim.o.wildmode = 'list:longest,full'
+
+vim.o.ruler = true
+vim.o.cursorline = true
+
+vim.o.backspace = 'indent,eol,start'
+
+vim.o.scrolloff = 3
+
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+vim.o.timeoutlen = 500
+
+--Jump back to alst known position in the file.
+vim.cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+
+--Gracefully handle holding shift too long after : for common commands
+vim.cmd [[
+cabbrev W w
+cabbrev Q q
+cabbrev Wq wq
+cabbrev Tabe tabe
+cabbrev Tabc tabc
+]]
+
+--Colorscheme overrides
+vim.cmd [[
+function SetupColorOverrides() abort
+  let l:colorscheme=get(g:, 'colors_name', 'default')
+
+  if l:colorscheme == "srcery"
+    highlight Search guibg=#ffcc00 guifg=#000000
+    highlight IncSearch guibg=#fff677 guifg=#000000
+    highlight CursorLine guibg=#252421
+  endif
+
+  highlight NonBreakingSpace ctermbg=Red
+
+  " Transparent background
+  highlight Normal ctermbg=none guibg=none
+  highlight NonText ctermbg=none guibg=none
+  highlight SignColumn ctermbg=none guibg=none
+  highlight NormalNC ctermbg=none guibg=none
+  highlight MsgArea ctermbg=none guibg=none
+  highlight TelescopeBorder ctermbg=none guibg=none
+  highlight NvimTreeNormal ctermbg=none guibg=none
+
+  highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+  highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+  highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+
+  highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+  highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+  highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+  highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+  highlight! CmpItemKindSnippet guibg=NONE guifg=#ffcc00
+
+  highlight LongLine guibg=#470a03
+endfunction
+
+function SetupMatches() abort
+  match NonBreakingSpace "[\xc2\xa0]"
+  match LongLine '\%>79v.\+'
+endfunction
+
+augroup ColorOverrides
+  autocmd!
+  autocmd ColorScheme * call SetupColorOverrides()
+  autocmd BufNewFile,BufRead * call SetupMatches()
+augroup END
+]]
+
 --Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme onedark]]
+vim.cmd [[colorscheme srcery]]
 
 -- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
-
+vim.opt.completeopt = "menu,menuone,noselect"
+--jkvim.o.completeopt = 'menuone,noselect'
 --Set statusbar
 require('lualine').setup {
   options = {
@@ -82,13 +172,24 @@ require('lualine').setup {
 require('Comment').setup()
 
 --Remap space as leader key
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('', ' ', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+--Preserve selection after indent
+vim.api.nvim_set_keymap("v", ">", ">gv", {})
+vim.api.nvim_set_keymap("v", "<", "<gv", {})
+
+--Indent using tab
+vim.api.nvim_set_keymap("v", "<Tab>", ">", {})
+vim.api.nvim_set_keymap("v", "<S-Tab>", "<", {})
+
+--Non-breaking space to space
+vim.api.nvim_set_keymap("i", "\u{00a0}", " ", {})
 
 -- Highlight on yank
 vim.cmd [[
@@ -99,10 +200,30 @@ vim.cmd [[
 ]]
 
 --Map blankline
-vim.g.indent_blankline_char = '┊'
+vim.cmd [[
+  highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine
+  highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine
+  highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine
+  highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine
+  highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine
+  highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine
+]]
+
+vim.g.indent_blankline_enabled = false
 vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
+require("indent_blankline").setup {
+  space_char_blankline = " ",
+  char_highlight_list = {
+    "IndentBlanklineIndent1",
+    "IndentBlanklineIndent2",
+    "IndentBlanklineIndent3",
+    "IndentBlanklineIndent4",
+    "IndentBlanklineIndent5",
+    "IndentBlanklineIndent6",
+  },
+}
 
 -- Gitsigns
 require('gitsigns').setup {
@@ -131,7 +252,7 @@ require('telescope').setup {
 require('telescope').load_extension 'fzf'
 
 --Add leader shortcuts
-vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader><space>', [[<cmd>lua require('telescope.builtin').buffers()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sf', [[<cmd>lua require('telescope.builtin').find_files({previewer = false})<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sb', [[<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>sh', [[<cmd>lua require('telescope.builtin').help_tags()<CR>]], { noremap = true, silent = true })
@@ -209,6 +330,7 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -232,6 +354,75 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+lspconfig.tsserver.setup({
+    -- Needed for inlayHints. Merge this table with your settings or copy
+    -- it from the source if you want to add your own init_options.
+    init_options = require("nvim-lsp-ts-utils").init_options,
+    --
+    on_attach = function(client, bufnr)
+        local ts_utils = require("nvim-lsp-ts-utils")
+
+        -- defaults
+        ts_utils.setup({
+            debug = false,
+            disable_commands = false,
+            enable_import_on_completion = false,
+
+            -- import all
+            import_all_timeout = 5000, -- ms
+            -- lower numbers = higher priority
+            import_all_priorities = {
+                same_file = 1, -- add to existing import statement
+                local_files = 2, -- git files or files with relative path markers
+                buffer_content = 3, -- loaded buffer content
+                buffers = 4, -- loaded buffer names
+            },
+            import_all_scan_buffers = 100,
+            import_all_select_source = false,
+            -- if false will avoid organizing imports
+            always_organize_imports = true,
+
+            -- filter diagnostics
+            filter_out_diagnostics_by_severity = {},
+            filter_out_diagnostics_by_code = {},
+
+            -- inlay hints
+            auto_inlay_hints = true,
+            inlay_hints_highlight = "Comment",
+            inlay_hints_priority = 200, -- priority of the hint extmarks
+            inlay_hints_throttle = 150, -- throttle the inlay hint request
+            inlay_hints_format = { -- format options for individual hint kind
+                Type = {},
+                Parameter = {},
+                Enum = {},
+                -- Example format customization for `Type` kind:
+                -- Type = {
+                --     highlight = "Comment",
+                --     text = function(text)
+                --         return "->" .. text:sub(2)
+                --     end,
+                -- },
+            },
+
+            -- update imports on file move
+            update_imports_on_move = false,
+            require_confirmation_on_move = false,
+            watch_dir = nil,
+        })
+
+        -- required to fix code action ranges and filter diagnostics
+        ts_utils.setup_client(client)
+
+        -- no default maps, so you may want to define some here
+        local opts = { silent = true }
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", opts)
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", opts)
+
+        return on_attach(client, bufnr)
+    end,
+})
 
 -- Example custom server
 -- Make runtime files discoverable to the server
@@ -266,6 +457,7 @@ lspconfig.sumneko_lua.setup {
   },
 }
 
+
 -- luasnip setup
 local luasnip = require 'luasnip'
 
@@ -282,7 +474,6 @@ cmp.setup {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -312,4 +503,147 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
--- vim: ts=2 sts=2 sw=2 et
+
+-- Toggle to disable mouse mode and indentlines for easier paste
+ToggleMouse = function()
+  if vim.o.mouse == 'a' then
+    vim.cmd[[IndentBlanklineDisable]]
+    vim.wo.signcolumn='no'
+    vim.o.mouse = 'v'
+    vim.wo.number = false
+    print("Mouse disabled")
+  else
+    vim.cmd[[IndentBlanklineEnable]]
+    vim.wo.signcolumn='yes'
+    vim.o.mouse = 'a'
+    vim.wo.number = true
+    print("Mouse enabled")
+  end
+end
+
+vim.api.nvim_set_keymap('n', '<F10>', '<cmd>lua ToggleMouse()<cr>', { noremap = true })
+
+-- The following mappings came with the template. What are they good for?
+-- They move the current line as soon as I move the cursor after leaving insert mode.
+-- Super annoying...
+--
+-- vim.api.nvim_set_keymap('n', '<A-k>', ':m .-2<CR>==', { noremap = true})
+-- vim.api.nvim_set_keymap('n', '<A-j>', ':m .+1<CR>==', { noremap = true})
+-- vim.api.nvim_set_keymap('i', '<A-j>', '<Esc>:m .+1<CR>==gi', { noremap = true})
+-- vim.api.nvim_set_keymap('i', '<A-k>', '<Esc>:m .-2<CR>==gi', { noremap = true})
+-- vim.api.nvim_set_keymap('v', '<A-j>', ':m \'>+1<CR>gv=gv', { noremap = true})
+-- vim.api.nvim_set_keymap('v', '<A-k>', ':m \'<-2<CR>gv=gv', { noremap = true})
+
+-- Which key
+local wk = require("which-key")
+
+wk.setup {
+  plugins = {
+    marks = true, -- shows a list of your marks on ' and `
+    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+    spelling = {
+      enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+      suggestions = 20, -- how many suggestions should be shown in the list?
+    },
+    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+    -- No actual key bindings are created
+    presets = {
+      operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+      motions = true, -- adds help for motions
+      text_objects = true, -- help for text objects triggered after entering an operator
+      windows = true, -- default bindings on <c-w>
+      nav = true, -- misc bindings to work with windows
+      z = true, -- bindings for folds, spelling and others prefixed with z
+      g = true, -- bindings for prefixed with g
+    },
+  },
+  -- add operators that will trigger motion and text object completion
+  -- to enable all native operators, set the preset / operators plugin above
+  operators = { gc = "Comments" },
+  key_labels = {
+    -- override the label used to display some keys. It doesn't effect WK in any other way.
+    -- For example:
+    -- ["<space>"] = "SPC",
+    -- ["<cr>"] = "RET",
+    -- ["<tab>"] = "TAB",
+  },
+  icons = {
+    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+    separator = "➜", -- symbol used between a key and it's label
+    group = "+", -- symbol prepended to a group
+  },
+  popup_mappings = {
+    scroll_down = '<c-d>', -- binding to scroll down inside the popup
+    scroll_up = '<c-u>', -- binding to scroll up inside the popup
+  },
+  window = {
+    border = "none", -- none, single, double, shadow
+    position = "bottom", -- bottom, top
+    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    winblend = 20
+  },
+  layout = {
+    height = { min = 4, max = 25 }, -- min and max height of the columns
+    width = { min = 20, max = 50 }, -- min and max width of the columns
+    spacing = 3, -- spacing between columns
+    align = "left", -- align columns left, center or right
+  },
+  ignore_missing = false, -- enable this to hide mappings for which you didn't specify a label
+  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+  show_help = true, -- show help message on the command line when the popup is visible
+  -- triggers = "auto", -- automatically setup triggers
+  -- triggers = {"<leader>"}, -- or specify a list manually
+  triggers_blacklist = {
+    -- list of mode / prefixes that should never be hooked by WhichKey
+    -- this is mostly relevant for key maps that start with a native binding
+    -- most people should not need to change this
+    i = { "j", "k" },
+    v = { "j", "k" },
+  },
+}
+
+wk.register({
+  f = {
+    name = "Telescope",
+    f = { "<cmd>Telescope find_files<cr>", "Find file" },
+    g = { "<cmd>Telescope live_grep<cr>", "Live grep" },
+    b = { "<cmd>Telescope buffers<cr>", "Buffers" },
+    n = { "<cmd>Telescope help_tags<cr>", "Help tags" },
+    r = { "<cmd>Telescope lsp_references<cr>", "LSP References" },
+    s = { "<cmd>Telescope lsp_document_symbols<cr>", "LSP Document Symbols" },
+    w = { "<cmd>Telescope lsp_workspace_symbols<cr>", "LSP Workspace Symbols" },
+    a = { "<cmd>Telescope lsp_range_code_actions<cr>", "LSP Range code actions" },
+    t = { "<cmd>Telescope treesitter<cr>", "Treesitter" },
+  },
+  i = { "<cmd>IndentBlanklineToggle<CR>", "Toggle IndentBlankline" },
+  [" "] = { "<cmd>set hlsearch!<cr>", "Toggle search highlight" },
+  s = "Strip whitespace",
+  p = { "<cmd>set paste!<cr>", "Toggle paste" },
+  P = { "<cmd>Prettier<cr>", "Prettier" },
+  q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Diagnostics locations" },
+  L = {
+    name = "LSP",
+    i = { "<cmd>lua vim.lsp.buf.implementation()<cr>" , "Go to implementation"},
+    k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Add workspace folder" },
+    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
+    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Formatting" },
+    R = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
+    S = {
+      name = "Server",
+      I = { "<cmd>LspInfo<cr>", "Lsp Info" },
+      S = { "<cmd>LspStart<cr>", "Lsp Start" },
+      X = { "<cmd>LspStop<cr>", "Lsp Stop" },
+      R = { "<cmd>LspRestart<cr>", "Lsp Restart" },
+    },
+  },
+  w = {
+    name = "Workspace",
+    a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add workspace folder" },
+    r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove workspace folder" },
+    l = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>", "Remove workspace folder" },
+  },
+  D = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Type definition" },
+  K = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Show type" }
+}, { prefix = "<leader>" })
