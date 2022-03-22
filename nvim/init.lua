@@ -53,6 +53,7 @@ require('packer').startup(function(use)
   use 'jose-elias-alvarez/nvim-lsp-ts-utils'
   use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
   use 'chrisbra/unicode.vim'
+  use 'elixir-editors/vim-elixir'
 end)
 
 --Set highlight on search
