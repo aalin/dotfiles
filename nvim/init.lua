@@ -161,6 +161,10 @@ augroup END
 vim.o.termguicolors = true
 vim.cmd [[colorscheme srcery]]
 
+--Enable blending
+vim.o.pumblend = 30
+vim.o.winblend = 30
+
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = "menu,menuone,noselect"
 --jkvim.o.completeopt = 'menuone,noselect'
