@@ -57,6 +57,7 @@ require('packer').startup(function(use)
   use('jose-elias-alvarez/null-ls.nvim')
   use('MunifTanjim/prettier.nvim')
   use('sheerun/vim-polyglot')
+  use 'ellisonleao/gruvbox.nvim'
 end)
 
 --Set highlight on search
@@ -166,7 +167,7 @@ augroup END
 
 --Set colorscheme
 vim.o.termguicolors = true
-vim.cmd [[colorscheme srcery]]
+vim.cmd([[colorscheme gruvbox]])
 
 --Enable blending
 vim.o.pumblend = 30
