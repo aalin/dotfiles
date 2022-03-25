@@ -54,6 +54,8 @@ require('packer').startup(function(use)
   use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
   use 'chrisbra/unicode.vim'
   use 'elixir-editors/vim-elixir'
+  use('jose-elias-alvarez/null-ls.nvim')
+  use('MunifTanjim/prettier.nvim')
 end)
 
 --Set highlight on search
@@ -684,3 +686,35 @@ require("toggleterm").setup{
     }
   }
 }
+
+require('null-ls').setup({
+  on_attach = function(client)
+    if client.resolved_capabilities.document_formatting then
+      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+      -- format on save
+      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+    end
+
+    if client.resolved_capabilities.document_range_formatting then
+      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+    end
+  end,
+})
+
+require('prettier').setup({
+  bin = 'prettier', -- or `prettierd`
+  filetypes = {
+    "css",
+    "graphql",
+    "html",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "less",
+    "markdown",
+    "scss",
+    "typescript",
+    "typescriptreact",
+    "yaml",
+  },
+})
