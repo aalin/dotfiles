@@ -59,7 +59,7 @@ install vimrc           ~/.vimrc
 install vim/config      ~/.vim/config
 install vim/ftplugin    ~/.vim/ftplugin
 install vim/lua         ~/.vim/lua
-install nvim/init.vim   ~/.config/nvim/init.vim
+install nvim            ~/.config/nvim
 install gitconfig       ~/.gitconfig
 install gitignore       ~/.gitignore
 install aliases         ~/.aliases
