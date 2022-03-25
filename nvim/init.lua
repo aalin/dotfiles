@@ -56,6 +56,7 @@ require('packer').startup(function(use)
   use 'elixir-editors/vim-elixir'
   use('jose-elias-alvarez/null-ls.nvim')
   use('MunifTanjim/prettier.nvim')
+  use('sheerun/vim-polyglot')
 end)
 
 --Set highlight on search
