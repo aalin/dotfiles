@@ -94,6 +94,10 @@ vim.o.splitbelow = true
 
 vim.o.timeoutlen = 500
 
+vim.o.tabstop = 2
+vim.o.shiftwidth = 2
+vim.o.expandtab = true
+
 --Jump back to alst known position in the file.
 vim.cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
 
