@@ -52,7 +52,7 @@ if [[ -d ~/.oh-my-zsh ]]; then
   success "Seems like oh-my-zsh is installed already"
 else
   warn "Installing oh-my-zsh"
-  git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+  git clone --depth 1 https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
 fi
 
 install vimrc           ~/.vimrc
