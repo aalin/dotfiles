@@ -16,7 +16,7 @@ function git_prompt_info_with_pair() {
 	fi
 }
 
-if [[ $(hostname) == "devbox" ]]; then
+if [[ "${HOST}" == "makinon" ]]; then
 	ZSH_THEME_GIT_PROMPT_PREFIX=" %F{45}❨%F{87}"
 	ZSH_THEME_GIT_PROMPT_SUFFIX="%F{45}❩%{$reset_color%}"
 	ZSH_THEME_GIT_PROMPT_DIRTY="%F{33}✻%{$reset_color%}"
