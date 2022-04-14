@@ -54,10 +54,12 @@ require('packer').startup(function(use)
   use { 'akinsho/bufferline.nvim', requires = { 'kyazdani42/nvim-web-devicons' } }
   use 'chrisbra/unicode.vim'
   use 'elixir-editors/vim-elixir'
-  use('jose-elias-alvarez/null-ls.nvim')
-  use('MunifTanjim/prettier.nvim')
-  use('sheerun/vim-polyglot')
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'MunifTanjim/prettier.nvim'
+  use 'sheerun/vim-polyglot'
   use 'ellisonleao/gruvbox.nvim'
+  use 'liuchengxu/vista.vim'
+  use 'mbbill/undotree'
 end)
 
 --Set highlight on search
@@ -150,7 +152,11 @@ function SetupColorOverrides() abort
   highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
   highlight! CmpItemKindSnippet guibg=NONE guifg=#ffcc00
 
+  highlight EndOfBuffer guifg=#928374
+  highlight InlayHint guibg=#282828 guifg=#7c6f64
   highlight LongLine guibg=#470a03
+  highlight CursorLine guibg=#1d3839
+  highlight CursorLineNR guibg=#284e50
 endfunction
 
 function SetupMatches() abort
@@ -220,12 +226,12 @@ vim.cmd [[
 
 --Map blankline
 vim.cmd [[
-  highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine
-  highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine
-  highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine
-  highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine
-  highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine
-  highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine
+  highlight IndentBlanklineIndent1 guifg=#70363a gui=nocombine " #E06C75
+  highlight IndentBlanklineIndent2 guifg=#72603d gui=nocombine " #E5C07B
+  highlight IndentBlanklineIndent3 guifg=#4c613c gui=nocombine " #98C379
+  highlight IndentBlanklineIndent4 guifg=#2b5b61 gui=nocombine " #56B6C2
+  highlight IndentBlanklineIndent5 guifg=#305777 gui=nocombine " #61AFEF
+  highlight IndentBlanklineIndent6 guifg=#633c6e gui=nocombine " #C678DD
 ]]
 
 vim.g.indent_blankline_enabled = false
@@ -366,13 +372,17 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'elixirls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
+
+lspconfig.elixirls.setup({
+  cmd = { "/Users/andreas/bin/elixir-ls/language_server.sh" };
+})
 
 lspconfig.tsserver.setup({
     -- Needed for inlayHints. Merge this table with your settings or copy
@@ -408,7 +418,7 @@ lspconfig.tsserver.setup({
 
             -- inlay hints
             auto_inlay_hints = true,
-            inlay_hints_highlight = "Comment",
+            inlay_hints_highlight = "InlayHint",
             inlay_hints_priority = 200, -- priority of the hint extmarks
             inlay_hints_throttle = 150, -- throttle the inlay hint request
             inlay_hints_format = { -- format options for individual hint kind
@@ -641,6 +651,8 @@ wk.register({
   p = { "<cmd>set paste!<cr>", "Toggle paste" },
   P = { "<cmd>Prettier<cr>", "Prettier" },
   q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Diagnostics locations" },
+  u = { "<cmd>UndotreeToggle<cr>", "undotree" },
+  v = { "<cmd>Vista!!<cr>", "Vista" },
   L = {
     name = "LSP",
     i = { "<cmd>lua vim.lsp.buf.implementation()<cr>" , "Go to implementation"},
