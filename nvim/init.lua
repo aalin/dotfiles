@@ -41,7 +41,7 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'tpope/vim-surround'
-  use 'aalin/animated-search-highlight.vim' -- Animated search highlights
+  use 'aalin/animated-search-highlight.nvim' -- Animated search highlights
   use 'folke/which-key.nvim' -- Press space for a menu
   use 'srcery-colors/srcery-vim' -- Color theme
   use 'norcalli/nvim-colorizer.lua'
@@ -186,7 +186,7 @@ vim.opt.completeopt = "menu,menuone,noselect"
 require('lualine').setup {
   options = {
     icons_enabled = false,
-    theme = 'onedark',
+    theme = 'gruvbox',
     component_separators = '|',
     section_separators = '',
     path = 1,
@@ -701,19 +701,19 @@ require("toggleterm").setup{
   }
 }
 
-require('null-ls').setup({
-  on_attach = function(client)
-    if client.resolved_capabilities.document_formatting then
-      vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
-      -- format on save
-      vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
-    end
-
-    if client.resolved_capabilities.document_range_formatting then
-      vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
-    end
-  end,
-})
+-- require('null-ls').setup({
+--   on_attach = function(client)
+--     if client.resolved_capabilities.document_formatting then
+--       vim.cmd("nnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.formatting()<CR>")
+--       -- format on save
+--       vim.cmd("autocmd BufWritePost <buffer> lua vim.lsp.buf.formatting()")
+--     end
+--
+--     if client.resolved_capabilities.document_range_formatting then
+--       vim.cmd("xnoremap <silent><buffer> <Leader>f :lua vim.lsp.buf.range_formatting({})<CR>")
+--     end
+--   end,
+-- })
 
 require('prettier').setup({
   bin = 'prettier', -- or `prettierd`
