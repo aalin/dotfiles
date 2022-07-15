@@ -60,6 +60,7 @@ require('packer').startup(function(use)
   use 'ellisonleao/gruvbox.nvim'
   use 'liuchengxu/vista.vim'
   use 'mbbill/undotree'
+  use "omnisyle/nvim-hidesig"
 end)
 
 --Set highlight on search
@@ -305,6 +306,11 @@ require('nvim-treesitter.configs').setup {
   indent = {
     enable = true,
   },
+  hidesig = {
+    enable = true,
+    opacity = 0.75, -- opacity for sig definitions
+    delay = 200,    -- update delay on CursorMoved and InsertLeave
+  },
   textobjects = {
     select = {
       enable = true,
@@ -383,6 +389,8 @@ end
 lspconfig.elixirls.setup({
   cmd = { "/Users/andreas/bin/elixir-ls/language_server.sh" };
 })
+
+lspconfig.sorbet.setup{}
 
 lspconfig.tsserver.setup({
     -- Needed for inlayHints. Merge this table with your settings or copy
@@ -485,7 +493,6 @@ lspconfig.sumneko_lua.setup {
     },
   },
 }
-
 
 -- luasnip setup
 local luasnip = require 'luasnip'
