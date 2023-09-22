@@ -23,7 +23,7 @@ if [[ "$HOMEBREW_PREFIX" ]]; then
 fi
 
 if type dircolors &> /dev/null ; then
-  eval $(TERM=xterm-256color dircolors ~/.dircolors)
+  eval $(dircolors ~/.dircolors)
 fi
 
 export COLORTERM=24bit
