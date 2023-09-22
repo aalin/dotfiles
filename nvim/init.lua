@@ -21,6 +21,7 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive' -- Git commands in nvim
   use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
+  use 'terrastruct/d2-vim'
   -- use 'ludovicchabant/vim-gutentags' -- Automatic tags management
   -- UI to select things (files, grep results, open buffers...)
   use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
@@ -41,10 +42,10 @@ require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip'
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use 'tpope/vim-surround'
-  use 'aalin/animated-search-highlight.nvim' -- Animated search highlights
+  -- use 'aalin/animated-search-highlight.nvim' -- Animated search highlights
   use 'folke/which-key.nvim' -- Press space for a menu
-  use 'srcery-colors/srcery-vim' -- Color theme
-  use 'norcalli/nvim-colorizer.lua'
+  -- use 'srcery-colors/srcery-vim' -- Color theme
+  -- use 'norcalli/nvim-colorizer.lua'
   use 'ntpeters/vim-better-whitespace'
   use 'akinsho/toggleterm.nvim'
   use 'vim-scripts/file-line'
@@ -57,10 +58,14 @@ require('packer').startup(function(use)
   use 'jose-elias-alvarez/null-ls.nvim'
   use 'MunifTanjim/prettier.nvim'
   use 'sheerun/vim-polyglot'
-  use 'ellisonleao/gruvbox.nvim'
   use 'liuchengxu/vista.vim'
   use 'mbbill/undotree'
-  use "omnisyle/nvim-hidesig"
+  use 'jlcrochet/vim-rbs'
+  -- use "omnisyle/nvim-hidesig"
+  use 'ellisonleao/gruvbox.nvim'
+  use { 'stevearc/aerial.nvim', config = function() require('aerial').setup() end }
+  use 'prisma/vim-prisma'
+  use 'norcalli/nvim-colorizer.lua'
 end)
 
 --Set highlight on search
@@ -107,6 +112,18 @@ vim.o.expandtab = true
 
 --Jump back to alst known position in the file.
 vim.cmd [[au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]]
+
+vim.cmd [[
+function! SynStack ()
+    for i1 in synstack(line("."), col("."))
+        let i2 = synIDtrans(i1)
+        let n1 = synIDattr(i1, "name")
+        let n2 = synIDattr(i2, "name")
+        echo n1 "->" n2
+    endfor
+endfunction
+map gm :call SynStack()<CR>
+]]
 
 --Gracefully handle holding shift too long after : for common commands
 vim.cmd [[
@@ -174,7 +191,24 @@ augroup END
 
 --Set colorscheme
 vim.o.termguicolors = true
-vim.cmd([[colorscheme gruvbox]])
+require("gruvbox").setup({
+  undercurl = true,
+  underline = true,
+  bold = true,
+  -- italic = true,
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = "hard", -- can be "hard", "soft" or empty string
+  palette_overrides = {},
+  overrides = {},
+  dim_inactive = true,
+  transparent_mode = true,
+})
+vim.cmd("colorscheme gruvbox")
 
 --Enable blending
 vim.o.pumblend = 30
@@ -201,6 +235,8 @@ require('Comment').setup()
 -- vim.api.nvim_set_keymap('', ' ', '<Nop>', { noremap = true, silent = true })
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+vim.g.ragel_default_subtype = 'ruby'
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
@@ -240,6 +276,7 @@ vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
 vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 require("indent_blankline").setup {
+  char = "▏",
   space_char_blankline = " ",
   char_highlight_list = {
     "IndentBlanklineIndent1",
@@ -370,27 +407,36 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+--#  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
 -- nvim-cmp supports additional completion capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- Enable the following language servers
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'elixirls' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
+-- lspconfig.ruby_ls.setup({
+--   cmd = { "bundle", "exec", "ruby-lsp" },
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
 
 lspconfig.elixirls.setup({
-  cmd = { "/Users/andreas/bin/elixir-ls/language_server.sh" };
+  cmd = { "/Users/andreas/bin/elixir-ls/language_server.sh" },
+  on_attach = on_attach,
+  capabilities = capabilities,
 })
 
-lspconfig.sorbet.setup{}
+lspconfig.ruby_ls.setup({
+  cmd = { "ruby-lsp" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+lspconfig.sorbet.setup({
+  cmd = { "bundle", "exec", "srb", "tc", "--lsp" },
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
 lspconfig.tsserver.setup({
     -- Needed for inlayHints. Merge this table with your settings or copy
@@ -467,7 +513,7 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   settings = {
@@ -543,7 +589,7 @@ cmp.setup {
 -- Toggle to disable mouse mode and indentlines for easier paste
 ToggleMouse = function()
   if vim.o.mouse == 'a' then
-    vim.cmd[[IndentBlanklineDisable]]
+    vim.cmd [[IndentBlanklineDisable]]
     vim.wo.signcolumn='no'
     vim.o.mouse = 'v'
     vim.wo.number = false
@@ -666,7 +712,8 @@ wk.register({
     k = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Add workspace folder" },
     r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
     a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Formatting" },
+    -- f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Formatting" },
+    f = { "<cmd>lua vim.lsp.buf.format { async = true }<cr>", "Formatting" },
     R = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
     S = {
       name = "Server",
@@ -737,5 +784,17 @@ require('prettier').setup({
     "typescript",
     "typescriptreact",
     "yaml",
+    "ruby",
   },
 })
+
+vim.g.vista_ctags_cmd = {
+  -- ruby = "ripper-tags -f - --format json"
+  ruby = "ripper-tags -f - --format json"
+}
+
+-- vim.g.vista.renderer.ctags = "kind"
+
+vim.g.vista_executives_for = {
+  ruby = "ctags"
+}
