@@ -17,11 +17,9 @@ export HISTFILE=~/.zsh_history
 unsetopt extendedglob # So that I can do "git reset --soft HEAD^" without getting "zsh: no matches found: HEAD^"
 unsetopt share_history
 
-if type brew &> /dev/null ; then
-  export PATH="/usr/local/opt/bison/bin:$PATH"
-  export PATH="/usr/local/opt/llvm/bin:$PATH"
-  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-  export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+if [[ "$HOMEBREW_PREFIX" ]]; then
+  export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+  export MANPATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnuman:$MANPATH"
 fi
 
 if type dircolors &> /dev/null ; then
@@ -68,9 +66,6 @@ if [[ -z "${DEVBOX}" ]]; then
   export NVM_DIR="/Users/andreas/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
