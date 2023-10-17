@@ -1,25 +1,35 @@
 #!/bin/zsh
+
+# Commands
+alias ls='ls --color'
+alias vim=nvim
+
+# Save and load paths
 alias savepath="pwd > /tmp/savepath"
 alias loadpath="[ -f /tmp/savepath ] && \`cat /tmp/savepath\` || echo /tmp/savepath does not exist."
-alias photoshop="open -a Adobe\ Photoshop\ CS5"
 
-alias ls='ls --color'
-
+# Git aliases
 alias gupp="git fetch && git rebase && git push"
+alias gl='git pull --rebase'
+alias gdc='git diff --cached'
+
+# Common mistypings
 alias mkae="make"
 alias maek="make"
 alias rkae="rake"
 alias raek="rake"
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us 2>/dev/null|pbcopy"
 
-alias grbc="git add -A && git rebase --continue"
-alias grba="git rebase --abort"
-
-alias guard="be guard -i -c"
-
-alias gl='echo git pull --rebase'
-alias gdc='git diff --cached'
-
-function docker-machine-use() { eval "$(docker-machine env $1)" }
-
-alias vim=nvim
+# Fuzzy cd
+function fcd() {
+  local dir
+  dir=$(
+    fd \
+      --hidden \
+      --type directory |
+        fzf \
+          --bind 'focus:transform-preview-label:echo [ {} ]' \
+          --preview 'tree -C -L 1 {} || ls --color=always {}'
+  )
+  [[ -n "${dir}" ]] && cd "${dir}"
+}
