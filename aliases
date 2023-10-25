@@ -25,7 +25,6 @@ function fcd() {
   local dir
   dir=$(
     fd \
-      --hidden \
       --type directory |
         fzf \
           --bind 'focus:transform-preview-label:echo [ {} ]' \
