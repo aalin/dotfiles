@@ -28,7 +28,8 @@ function fcd() {
       --type directory |
         fzf \
           --bind 'focus:transform-preview-label:echo [ {} ]' \
-          --preview 'tree -C -L 1 {} || ls --color=always {}'
+          --preview 'tree -C -L 1 {} || ls --color=always {}' \
+          --query="$*"
   )
   [[ -n "${dir}" ]] && cd "${dir}"
 }
